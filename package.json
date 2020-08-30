@@ -1,7 +1,13 @@
 {
-  "name": "frontend",
+  "name": "linkbin",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -12,11 +18,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^7.6.0"
   },
   "eslintConfig": {
     "extends": "react-app"
