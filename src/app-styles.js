@@ -16,7 +16,10 @@ export const useStyles = makeStyles((theme) => ({
   boardSpace: {
     backgroundColor: darkTheme.palette.secondary.main,
     height: 'fit-content',
-    paddingTop: 64,
+    paddingTop: 128,
+    paddingLeft: 64,
+    paddingRight: 64,
+    scrollPaddingBottom: 100,
   },
   background: {
     position: 'fixed',

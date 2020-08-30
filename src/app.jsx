@@ -5,9 +5,10 @@ import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { ThemeProvider } from '@material-ui/core';
 
 import InputBox from './components/input-box';
-import { ThemeProvider } from '@material-ui/core';
+import LinkBoard from './components/link-board';
 
 function App() {
   const classes = useStyles();
@@ -33,9 +34,7 @@ function App() {
 
         {/* Content */}
         <Container className={classes.boardSpace}>
-          <div>
-            Links will be stacked here
-          </div>
+          <LinkBoard />
         </Container>
       </div>
     </ThemeProvider>
