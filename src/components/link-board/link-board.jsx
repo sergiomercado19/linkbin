@@ -3,7 +3,7 @@ import { useStyles } from './link-board-styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-function App() {
+function LinkBoard() {
   const classes = useStyles();
 
   return (
@@ -17,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default LinkBoard;
