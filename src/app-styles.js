@@ -4,7 +4,7 @@ import { blue, grey } from '@material-ui/core/colors';
 export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: '100vh',
+    // height: '100vh',
     backgroundColor: darkTheme.palette.secondary.main,
   },
   menuButton: {
@@ -16,10 +16,16 @@ export const useStyles = makeStyles((theme) => ({
   boardSpace: {
     backgroundColor: darkTheme.palette.secondary.main,
     height: 'fit-content',
-  },
-  pinBoard: {
     paddingTop: 64,
+  },
+  background: {
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     backgroundColor: darkTheme.palette.secondary.main,
+    zIndex: -1,
   }
 }));
 

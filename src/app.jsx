@@ -15,6 +15,9 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.root}>
+        {/* Background */}
+        <div className={classes.background}></div>
+
         {/* Navbar */}
         <AppBar position="fixed">
           <Toolbar>
@@ -30,11 +33,10 @@ function App() {
 
         {/* Content */}
         <Container className={classes.boardSpace}>
-          <div className={classes.pinBoard}>
+          <div>
             Links will be stacked here
           </div>
         </Container>
-
       </div>
     </ThemeProvider>
   );
