@@ -5,10 +5,27 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    height: 140,
+    height: 'fit-content',
     width: 'auto',
   },
   control: {
     padding: theme.spacing(2),
   },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+  clickable: {
+    cursor: 'pointer',
+  },
+  close: {
+    padding: 4,
+    marginRight: 12,
+  }
 }));

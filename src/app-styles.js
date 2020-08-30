@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingTop: 128,
     paddingLeft: 64,
     paddingRight: 64,
-    scrollPaddingBottom: 100,
+    paddingBottom: 100,
   },
   background: {
     position: 'fixed',
