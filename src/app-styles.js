@@ -4,8 +4,6 @@ import { blue, grey } from '@material-ui/core/colors';
 export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    // height: '100vh',
-    backgroundColor: darkTheme.palette.secondary.main,
   },
   menuButton: {
     marginRight: theme.spacing(2),
