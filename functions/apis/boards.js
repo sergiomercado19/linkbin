@@ -1,18 +1,5 @@
 const { db } = require('../utils/admin');
 
-// getBoard - gets all the links in a given board
-exports.getBoard = async (request, response) => {
-  const boardRef = db.collection('boards').doc(request.query.id);
-  const board = await boardRef.get();
-
-  if (!board.exists) {
-    console.log('No such board!');
-    return response.status(404).json({ error: 'Invalid board ID' });
-  } else {
-    return response.json(board.data());
-  }
-}
-
 // newBoard - create new board with a random id
 exports.newBoard = async (request, response) => {
   const boardRef = await db.collection('boards').add({ links: [] });
@@ -28,7 +15,7 @@ exports.newBoard = async (request, response) => {
 
 // deleteBoard - delete a board
 exports.deleteBoard = async (request, response) => {
-  const boardRef = db.collection('boards').doc(request.query.id);
+  const boardRef = db.collection('boards').doc(request.params.id);
   const board = await boardRef.get();
 
   if (!board.exists) {
