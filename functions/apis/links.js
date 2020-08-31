@@ -32,9 +32,14 @@ exports.insertLink = async (request, response) => {
 
   // Insert link, return new
   boardData.links.push(newLink);
-  await boardRef.update(boardData);
-  board = await boardRef.get();
-  return response.json(board.data());
+  return boardRef.update(boardData)
+    .then(() => {
+      return response.json(boardData);
+    })
+    .catch((err) => {
+			console.error(err);
+			return response.status(500).json({ error: 'Something went wrong' });
+		});
 };
 
 // removeLink - removes a link from a given board
@@ -55,8 +60,12 @@ exports.removeLink = async (request, response) => {
       boardData.links.splice(index, 1);
     index -= 1;
   }
-
-  await boardRef.update(boardData);
-  board = await boardRef.get();
-  return response.json(board.data());
+  return boardRef.update(boardData)
+    .then(() => {
+      return response.json(boardData);
+    })
+    .catch((err) => {
+			console.error(err);
+			return response.status(500).json({ error: 'Something went wrong' });
+		});
 };
