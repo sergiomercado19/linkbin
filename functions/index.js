@@ -1,9 +1,15 @@
 const functions = require('firebase-functions');
 const app = require('express')();
 
-const { getLinks, insertLink, removeLink } = require('./apis/links')
+// Boards
+const { getBoard, newBoard, deleteBoard } = require('./apis/boards')
+app.get('/board', getBoard);
+app.post('/board', newBoard);
+app.delete('/board', deleteBoard);
 
-app.get('/links', getLinks);
+// Links
+const { insertLink, removeLink } = require('./apis/links')
 app.put('/link', insertLink);
 app.delete('/link', removeLink);
+
 exports.api = functions.https.onRequest(app);
