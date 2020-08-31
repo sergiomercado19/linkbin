@@ -1,24 +1,10 @@
 const { db } = require('../utils/admin');
 
-
-// getLinks - gets all the links in a given board
-exports.getLinks = async (request, response) => {
-  const boardRef = db.collection('boards').doc(request.query.board);
-  const board = await boardRef.get();
-
-  if (!board.exists) {
-    console.log('No such board!');
-    return response.status(404).json({ error: 'Invalid board ID' });
-  } else {
-    return response.json(board.data());
-  }
-}
-
 // insertLink - adds a link to a given board
 exports.insertLink = async (request, response) => {
   const url = request.body.url.trim();
 	if (url === '') {
-		return response.status(400).json({ error: 'Invalid URL' });
+		return response.status(404).json({ error: 'Invalid URL' });
   }
 
   const boardRef = db.collection('boards').doc(request.query.board);
@@ -55,7 +41,7 @@ exports.insertLink = async (request, response) => {
 exports.removeLink = async (request, response) => {
   const url = request.body.url.trim();
 	if (url === '') {
-		return response.status(400).json({ error: 'Invalid URL' });
+		return response.status(404).json({ error: 'Invalid URL' });
   }
 
   const boardRef = db.collection('boards').doc(request.query.board);
