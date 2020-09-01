@@ -11,7 +11,7 @@ import {
   Route
 } from "react-router-dom";
 
-import LinkBoard from '../components/link-board';
+import Board from '../components/board';
 
 function App() {
   const classes = useStyles();
@@ -36,7 +36,7 @@ function App() {
         <Container className={classes.boardSpace}>
           <Switch>
             {/* <Route path="/" component={Home} exact /> */}
-            <Route path="/:boardId" component={LinkBoard} />
+            <Route path="/:boardId" component={Board} />
             {/* <Route path="/me/boards" component={} /> */}
           </Switch>
         </Container>

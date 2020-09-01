@@ -5,8 +5,7 @@ import { useParams } from 'react-router-dom'
 import InputBox from '../input-box';
 import LinkCard from '../link-card';
 
-
-function LinkBoard() {
+function Board() {
 
   let { boardId } = useParams();
 
@@ -72,4 +71,4 @@ function LinkBoard() {
   );
 }
 
-export default LinkBoard;
+export default Board;
