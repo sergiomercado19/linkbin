@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { useStyles } from './link-board-styles';
 import Grid from '@material-ui/core/Grid';
+import { useParams } from 'react-router-dom'
 
+import InputBox from '../input-box';
 import LinkCard from '../link-card';
 
+
 function LinkBoard() {
+
+  let { boardId } = useParams();
+
   const [links, setLinks] = useState([
     {
       title: "Google",
@@ -50,16 +55,20 @@ function LinkBoard() {
     },
   ]);
 
-  const classes = useStyles();
-
   return (
-    <Grid container justify="center" spacing={3}>
-      {links.map((link) => (
-        <Grid key={link.url} item xs={6}>
-          <LinkCard link={link} />
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      {/* New link input */}
+      <InputBox />
+
+      {/* Links */}
+      <Grid container justify="center" spacing={3}>
+        {links.map((link) => (
+          <Grid key={link.url} item xs={6}>
+            <LinkCard link={link} />
+          </Grid>
+        ))}
+      </Grid>
+    </>
   );
 }
 

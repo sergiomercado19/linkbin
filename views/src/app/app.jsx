@@ -6,8 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/core';
+import {
+  Switch,
+  Route
+} from "react-router-dom";
 
-import InputBox from '../components/input-box';
 import LinkBoard from '../components/link-board';
 
 function App() {
@@ -29,13 +32,13 @@ function App() {
           </Toolbar>
         </AppBar>
 
-        {/* New link input */}
-        <InputBox />
-
-        {/* Content */}
+        {/* Route viewport */}
         <Container className={classes.boardSpace}>
-
-          <LinkBoard />
+          <Switch>
+            {/* <Route path="/" component={Home} exact /> */}
+            <Route path="/:boardId" component={LinkBoard} />
+            {/* <Route path="/me/boards" component={} /> */}
+          </Switch>
         </Container>
       </div>
     </ThemeProvider>
