@@ -1,58 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useParams } from 'react-router-dom'
 
 import InputBox from '../input-box';
 import LinkCard from '../link-card';
 
+import apiClient from '../../utils/apiClient';
+
 function Board() {
-
   let { boardId } = useParams();
+  const [links, setLinks] = useState([]);
 
-  const [links, setLinks] = useState([
-    {
-      title: "Google",
-      description: "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
-      domain: "google.com.au",
-      img: "https://www.google.com.au/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
-      url: "https://www.google.com.au"
-    },
-    {
-      title: "Facebook - Log In or Sign Up",
-      description: "Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.",
-      domain: "facebook.com",
-      img: "https://www.facebook.com/images/fb_icon_325x325.png",
-      url: "https://www.facebook.com"
-    },
-    {
-      title: "Google",
-      description: "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
-      domain: "google.com.au",
-      img: "https://www.google.com.au/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
-      url: "https://www.google.com.au"
-    },
-    {
-      title: "Facebook - Log In or Sign Up",
-      description: "Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.",
-      domain: "facebook.com",
-      img: "https://www.facebook.com/images/fb_icon_325x325.png",
-      url: "https://www.facebook.com"
-    },
-    {
-      title: "Google",
-      description: "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
-      domain: "google.com.au",
-      img: "https://www.google.com.au/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
-      url: "https://www.google.com.au"
-    },
-    {
-      title: "Facebook - Log In or Sign Up",
-      description: "Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.",
-      domain: "facebook.com",
-      img: "https://www.facebook.com/images/fb_icon_325x325.png",
-      url: "https://www.facebook.com"
-    },
-  ]);
+  useEffect(() => {
+    apiClient.getLinks(boardId)
+      .then((res) => {
+        // Load board if id is found
+        if (!res['error']) setLinks(res.links);
+      });
+  }, []);
 
   return (
     <>
