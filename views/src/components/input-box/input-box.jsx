@@ -10,7 +10,7 @@ function InputBox() {
 
   return (
     <div className={classes.root}>
-      <Paper elevation={5} component="form" className={classes.form}>
+      <Paper elevation={6} component="form" className={classes.form}>
         <InputBase
           className={classes.input}
           placeholder="Add a link"

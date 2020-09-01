@@ -7,7 +7,6 @@ export const useStyles = makeStyles((theme) => ({
     height: 100,
     width: '100%',
     zIndex: 1,
-    backgroundImage: 'linear-gradient(to bottom, rgba(48,48,48,0) 0%, rgba(48,48,48,1) 60%);',
   },
   form: {
     padding: '2px 4px',
@@ -17,6 +16,7 @@ export const useStyles = makeStyles((theme) => ({
     position: 'relative',
     margin: 'auto',
     marginTop: 25,
+    backgroundColor: theme.palette.secondary.dark,
   },
   input: {
     marginLeft: theme.spacing(1),
