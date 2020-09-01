@@ -35,8 +35,13 @@ const insertLink = (boardId, linkUrl) => {
 };
 
 const removeLink = (boardId, linkUrl) => {
+  var headers = new Headers();
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  var body = new URLSearchParams();
+  body.append('url', linkUrl);
+
   const url = LINKS_URL(boardId);
-  const client = getClient('DELETE', `url=${linkUrl}`);
+  const client = getClient('DELETE', headers, body);
   return apiCall(url, client);
 };
 
@@ -50,17 +55,18 @@ const apiCall = async (url, options, convertToJson = true) => {
   return res;
 };
 
-const getClient = (method, body) => {
+const getClient = (method, headers, body) => {
+  const defaultHeaders = new Headers();
+  headers.append('Accept', 'application/json');
+  headers.append('Content-Type', 'application/json');
+  
   const client = {
     method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
+    headers: headers || defaultHeaders,
+    body: body || null
   };
   // Get user token from cookies/local storage
   // if (token) headers.Authorization = `Bearer ${token}`;
-  if (body) client.body = body;
   return client;
 };
 
