@@ -19,6 +19,14 @@ function Board() {
       });
   }, [boardId]);
 
+  const insertLink = (linkUrl) => {
+    apiClient.insertLink(boardId, linkUrl)
+      .then((res) => {
+        // Reload parent
+        setLinks(res.links);
+      });
+  }
+
   const removeLink = (linkUrl) => {
     apiClient.removeLink(boardId, linkUrl)
       .then((res) => {
@@ -30,7 +38,7 @@ function Board() {
   return (
     <>
       {/* New link input */}
-      <InputBox />
+      <InputBox insertLink={insertLink} />
 
       {/* Links */}
       <Grid container justify="center" spacing={3}>

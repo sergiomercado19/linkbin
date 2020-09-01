@@ -29,13 +29,20 @@ const getLinks = (boardId) => {
 };
 
 const insertLink = (boardId, linkUrl) => {
+  var headers = new Headers();
+  headers.append('Origin', 'http://localhost:3000');
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  var body = new URLSearchParams();
+  body.append('url', linkUrl);
+
   const url = LINKS_URL(boardId);
-  const client = getClient('PUT', `url=${linkUrl}`);
+  const client = getClient('PUT', headers, body);
   return apiCall(url, client);
 };
 
 const removeLink = (boardId, linkUrl) => {
   var headers = new Headers();
+  headers.append('Origin', 'http://localhost:3000');
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
   var body = new URLSearchParams();
   body.append('url', linkUrl);
@@ -57,8 +64,8 @@ const apiCall = async (url, options, convertToJson = true) => {
 
 const getClient = (method, headers, body) => {
   const defaultHeaders = new Headers();
-  headers.append('Accept', 'application/json');
-  headers.append('Content-Type', 'application/json');
+  defaultHeaders.append('Accept', 'application/json');
+  defaultHeaders.append('Content-Type', 'application/json');
   
   const client = {
     method,
