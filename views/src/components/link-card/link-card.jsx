@@ -9,10 +9,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import LinkIcon from '@material-ui/icons/Link';
 
 function LinkCard(props) {
-  const copyToClipboard = (url) => {
+  // Work around to copy a link to the clipboard
+  const copyLink = () => {
     var dummy = document.createElement("textarea");
     document.body.appendChild(dummy);
-    dummy.value = url;
+    dummy.value = props.link.url;
     dummy.select();
     document.execCommand("copy");
     document.body.removeChild(dummy);
@@ -49,11 +50,11 @@ function LinkCard(props) {
           {/* Close */}
           <Grid item>
             <Grid item container direction="column" style={{height: '100%'}}>
-              <IconButton color="primary" className={classes.close}>
+              <IconButton color="primary" className={classes.close} onClick={() => props.removeLink(props.link.url)}>
                 <CloseIcon />
               </IconButton>
               <div style={{marginTop: 'auto'}}></div>
-              <IconButton color="primary" className={classes.close} onClick={() => copyToClipboard(props.link.url)}>
+              <IconButton color="primary" className={classes.close} onClick={copyLink}>
                 <LinkIcon/>
               </IconButton>
             </Grid>

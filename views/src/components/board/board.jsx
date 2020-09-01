@@ -17,7 +17,15 @@ function Board() {
         // Load board if id is found
         if (!res['error']) setLinks(res.links);
       });
-  }, []);
+  }, [boardId]);
+
+  const removeLink = (linkUrl) => {
+    apiClient.removeLink(boardId, linkUrl)
+      .then((res) => {
+        // Reload parent
+        setLinks(res.links);
+      });
+  }
 
   return (
     <>
@@ -28,7 +36,7 @@ function Board() {
       <Grid container justify="center" spacing={3}>
         {links.map((link) => (
           <Grid key={link.url} item xs={6}>
-            <LinkCard link={link} />
+            <LinkCard link={link} removeLink={removeLink}/>
           </Grid>
         ))}
       </Grid>
