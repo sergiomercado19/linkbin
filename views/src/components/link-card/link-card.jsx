@@ -27,7 +27,7 @@ function LinkCard(props) {
         {/* Thumbnail */}
         <Grid item className={classes.clickable} onClick={() => window.location.href=props.link.url}>
           <ButtonBase className={classes.image}>
-            <img className={classes.img} alt="thumbnail" src={props.link.url} />
+            <img className={classes.img} alt="thumbnail" src={props.link.img} />
           </ButtonBase>
         </Grid>
 
