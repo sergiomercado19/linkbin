@@ -1,4 +1,5 @@
 const { db } = require('../utils/admin');
+const linkPreviewGenerator = require("link-preview-generator");
 
 // getLinks - gets all the links in a given board
 exports.getLinks = async (request, response) => {
@@ -34,14 +35,9 @@ exports.insertLink = async (request, response) => {
     return response.json(boardData); 
   }
   
-  // TODO: Get Link preview from URL
-  const newLink = {
-    title: "Pinterest",
-    description: "Discover recipes, home ideas, style inspiration and other ideas to try.",
-    domain: "pinterest.com.au",
-    img: "link.com",
-    url: "https://www.pinterest.com.au/"
-  }
+  // Get Link preview from URL
+  const newLink = await linkPreviewGenerator(url, ['--no-sandbox']);
+  newLink['url'] = url;
 
   // Insert link, return new
   boardData.links.push(newLink);
