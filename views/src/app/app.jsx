@@ -7,8 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/core';
 
-import InputBox from './components/input-box';
-import LinkBoard from './components/link-board';
+import InputBox from '../components/input-box';
+import LinkBoard from '../components/link-board';
 
 function App() {
   const classes = useStyles();
@@ -23,7 +23,7 @@ function App() {
         <AppBar position="fixed">
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
-              Board
+              Linkbin
             </Typography>
             <Button color="inherit">Login</Button>
           </Toolbar>
@@ -34,6 +34,7 @@ function App() {
 
         {/* Content */}
         <Container className={classes.boardSpace}>
+
           <LinkBoard />
         </Container>
       </div>
