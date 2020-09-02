@@ -11,7 +11,7 @@ import {
   Route
 } from "react-router-dom";
 
-import Board from '../components/board';
+import Board from '../routes/board';
 
 function App() {
   const classes = useStyles();

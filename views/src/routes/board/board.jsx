@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { useParams } from 'react-router-dom'
 
-import InputBox from '../input-box';
-import LinkCard from '../link-card';
+import InputBox from '../../components/input-box';
+import LinkCard from '../../components/link-card';
 
 import apiClient from '../../utils/apiClient';
 
