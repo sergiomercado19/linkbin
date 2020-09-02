@@ -7,3 +7,5 @@ export const URL = IN_DEVELOPMENT ? DEVELOP_URL : DEPLOY_URL;
 export const POST_BOARD_URL = () => `${URL}/boards`;
 export const DELETE_BOARD_URL = (id) => `${URL}/boards/${id}`;
 export const LINKS_URL = (id) => `${URL}/boards/${id}/links`;
+
+export const IS_BOARDID_VALID = (boardId) => /^([a-z0-9]{5,})$/.test(boardId);
