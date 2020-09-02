@@ -11,6 +11,7 @@ import {
   Route
 } from "react-router-dom";
 
+import Home from '../routes/home';
 import Board from '../routes/board';
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
         {/* Route viewport */}
         <Container className={classes.boardSpace}>
           <Switch>
-            {/* <Route path="/" component={Home} exact /> */}
+            <Route path="/" component={Home} exact />
             <Route path="/:boardId" component={Board} />
             {/* <Route path="/me/boards" component={} /> */}
           </Switch>
