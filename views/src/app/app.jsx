@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStyles, darkTheme } from './app-styles';
 import AppBar from '@material-ui/core/AppBar';
-import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -34,13 +33,11 @@ function App() {
         </AppBar>
 
         {/* Route viewport */}
-        <Container className={classes.boardSpace}>
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/:boardId" component={Board} />
-            {/* <Route path="/me/boards" component={} /> */}
-          </Switch>
-        </Container>
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/:boardId" component={Board} />
+          {/* <Route path="/me/boards" component={} /> */}
+        </Switch>
       </div>
     </ThemeProvider>
   );

@@ -1,55 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { useParams } from 'react-router-dom'
+import React from 'react';
+import { useStyles } from './home-styles';
+import { withRouter } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
 
-import InputBox from '../../components/input-box';
-import LinkCard from '../../components/link-card';
+function Home(props) {
 
-import apiClient from '../../utils/apiClient';
-
-function Home() {
-  let { boardId } = useParams();
-  const [links, setLinks] = useState([]);
-
-  useEffect(() => {
-    apiClient.getLinks(boardId)
-      .then((res) => {
-        // Load board if id is found
-        if (!res['error']) setLinks(res.links);
-      });
-  }, [boardId]);
-
-  const insertLink = (linkUrl) => {
-    apiClient.insertLink(boardId, linkUrl)
-      .then((res) => {
-        // Reload parent
-        setLinks(res.links);
-      });
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (e.target.boardId.value !== '') {
+      // Redirect to board
+      props.history.push(`/${e.target.boardId.value}`);
+    }
   }
 
-  const removeLink = (linkUrl) => {
-    apiClient.removeLink(boardId, linkUrl)
-      .then((res) => {
-        // Reload parent
-        setLinks(res.links);
-      });
-  }
+  const classes = useStyles();
 
   return (
-    <>
-      {/* New link input */}
-      <InputBox insertLink={insertLink} />
+    <div className={classes.root}>
+      <div className={classes.text}>
+        {/* Title */}
+        <Typography variant="h1">
+          Linkbin
+        </Typography>
 
-      {/* Links */}
-      <Grid container justify="center" spacing={3}>
-        {links.map((link) => (
-          <Grid key={link.url} item xs={6}>
-            <LinkCard link={link} removeLink={removeLink}/>
-          </Grid>
-        ))}
-      </Grid>
-    </>
+        {/* Tagline */}
+        <Typography variant="subtitle1">
+          A link pinboard service
+        </Typography>
+
+        {/* Searchbox */}
+        <TextField
+          className={classes.searchbox}
+          name="boardId"
+          placeholder="Enter board ID"
+          component="form"
+          onSubmit={handleSearch}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </div>
+    </div>
   );
 }
 
-export default Home;
+export default withRouter(Home);

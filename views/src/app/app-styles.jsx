@@ -11,14 +11,6 @@ export const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  boardSpace: {
-    backgroundColor: darkTheme.palette.secondary.main,
-    height: 'fit-content',
-    paddingTop: 128,
-    paddingLeft: 64,
-    paddingRight: 64,
-    paddingBottom: 100,
-  },
   background: {
     position: 'fixed',
     top: 0,

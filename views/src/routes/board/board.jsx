@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
+import { useStyles } from './board-styles';
 import { useParams } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
 import InputBox from '../../components/input-box';
 import LinkCard from '../../components/link-card';
@@ -35,8 +37,10 @@ function Board() {
       });
   }
 
+  const classes = useStyles();
+
   return (
-    <>
+    <Container className={classes.boardSpace}>
       {/* New link input */}
       <InputBox insertLink={insertLink} />
 
@@ -48,7 +52,7 @@ function Board() {
           </Grid>
         ))}
       </Grid>
-    </>
+    </Container>
   );
 }
 
