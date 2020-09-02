@@ -35,8 +35,19 @@ exports.insertLink = async (request, response) => {
     return response.json(boardData); 
   }
   
+  // Puppeteer flags to increase performance
+  const puppeteerArgs = [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-accelerated-2d-canvas',
+    '--no-first-run',
+    '--no-zygote',
+    '--single-process',
+    '--disable-gpu'
+  ];
   // Get Link preview from URL
-  const newLink = await linkPreviewGenerator(url, ['--no-sandbox']);
+  const newLink = await linkPreviewGenerator(url, puppeteerArgs);
   newLink['url'] = url;
 
   // Insert link, return new
