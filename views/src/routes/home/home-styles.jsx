@@ -3,13 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
   root: {
     background: 'url("landing-banner.jpg")',
-    height: '50vh',
+    height: '100vh',
     minHeight: 400,
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     position: 'relative',
-    paddingTop: 128,
   },
   text: {
     textAlign: 'center',

@@ -17,6 +17,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
+    paddingLeft: 12,
   },
   clickable: {
     cursor: 'pointer',

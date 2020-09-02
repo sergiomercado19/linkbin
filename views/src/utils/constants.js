@@ -10,4 +10,4 @@ export const LINKS_URL = (id) => `${URL}/boards/${id}/links`;
 
 // From: https://stackoverflow.com/questions/52850099/what-is-the-reg-expression-for-firestore-constraints-on-document-ids
 // Regex matches Firestore's auto generated IDs
-export const IS_BOARDID_VALID = (boardId) => /^(?!\.\.?$)(?!.*__.*__)([^/]{1,20})$/.test(boardId);
+export const IS_BOARDID_VALID = (boardId) => /^(?!\.\.?$)(?!.*__.*__)([^/]{20})$/.test(boardId);

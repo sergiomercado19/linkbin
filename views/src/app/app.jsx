@@ -1,14 +1,11 @@
 import React from 'react';
+import { Switch, Route } from "react-router-dom";
 import { useStyles, darkTheme } from './app-styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/core';
-import {
-  Switch,
-  Route
-} from "react-router-dom";
 
 import Home from '../routes/home';
 import Board from '../routes/board';
@@ -36,9 +33,9 @@ function App() {
         {/* Route viewport */}
         <Switch>
           <Route path="/" component={Home} exact />
+          <Route path="/notfound" component={NotFound} />
           <Route path="/:boardId" component={Board} />
           {/* <Route path="/me/boards" component={} /> */}
-          <Route path="/notfound" component={NotFound} />
         </Switch>
       </div>
     </ThemeProvider>
