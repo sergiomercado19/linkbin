@@ -8,4 +8,6 @@ export const POST_BOARD_URL = () => `${URL}/boards`;
 export const DELETE_BOARD_URL = (id) => `${URL}/boards/${id}`;
 export const LINKS_URL = (id) => `${URL}/boards/${id}/links`;
 
-export const IS_BOARDID_VALID = (boardId) => /^([a-z0-9]{5,})$/.test(boardId);
+// From: https://stackoverflow.com/questions/52850099/what-is-the-reg-expression-for-firestore-constraints-on-document-ids
+// Regex matches Firestore's auto generated IDs
+export const IS_BOARDID_VALID = (boardId) => /^(?!\.\.?$)(?!.*__.*__)([^/]{1,20})$/.test(boardId);
