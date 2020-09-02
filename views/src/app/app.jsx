@@ -12,6 +12,7 @@ import {
 
 import Home from '../routes/home';
 import Board from '../routes/board';
+import NotFound from '../routes/not-found';
 
 function App() {
   const classes = useStyles();
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" component={Home} exact />
           <Route path="/:boardId" component={Board} />
           {/* <Route path="/me/boards" component={} /> */}
+          <Route path="/notfound" component={NotFound} />
         </Switch>
       </div>
     </ThemeProvider>

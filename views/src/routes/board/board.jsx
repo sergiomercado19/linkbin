@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, Redirect } from 'react-router-dom'
 import { useStyles } from './board-styles';
-import { useParams } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -12,12 +12,14 @@ import apiClient from '../../utils/apiClient';
 function Board() {
   let { boardId } = useParams();
   const [links, setLinks] = useState([]);
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     apiClient.getLinks(boardId)
       .then((res) => {
         // Load board if id is found
-        if (!res['error']) setLinks(res.links);
+        if (res['error']) setIsValid(false);
+        else setLinks(res.links);
       });
   }, [boardId]);
 
@@ -39,21 +41,26 @@ function Board() {
 
   const classes = useStyles();
 
-  return (
-    <Container className={classes.boardSpace}>
-      {/* New link input */}
-      <InputBox insertLink={insertLink} />
+  if (isValid) {
+    return (
+      <Container className={classes.boardSpace}>
+        {/* New link input */}
+        <InputBox insertLink={insertLink} />
+  
+        {/* Links */}
+        <Grid container justify="center" spacing={3}>
+          {links.map((link) => (
+            <Grid key={link.url} item xs={6}>
+              <LinkCard link={link} removeLink={removeLink}/>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    );
+  } else {
+    return <Redirect to="/notfound" />
+  }
 
-      {/* Links */}
-      <Grid container justify="center" spacing={3}>
-        {links.map((link) => (
-          <Grid key={link.url} item xs={6}>
-            <LinkCard link={link} removeLink={removeLink}/>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
-  );
 }
 
 export default Board;
