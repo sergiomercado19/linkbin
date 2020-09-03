@@ -8,7 +8,8 @@ const auth = require('./utils/auth');
 app.use(cors());
 
 // Boards
-const { newBoard, deleteBoard } = require('./apis/boards');
+const { getUserBoards, newBoard, deleteBoard } = require('./apis/boards');
+app.get('/boards/me', auth, getUserBoards);
 app.post('/boards', auth, newBoard);
 app.delete('/boards/:id', auth, deleteBoard);
 

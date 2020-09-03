@@ -2,6 +2,23 @@ const { db } = require('../utils/admin');
 const { boardError, authError } = require('../utils/errors');
 
 // newBoard - create new board with a random id
+exports.getUserBoards = async (request, response) => {
+  const query = db.collection('boards').where('owner', '==', request.user.email);
+  const results = await query.get();
+
+  let boards = [];
+  results.forEach((board) => {
+    // Get data from the document
+    let data = board.data();
+    // Include the boardId to each result
+    data.id = board.id;
+    boards.push(data)
+  });
+
+  return response.json(boards);
+}
+
+// newBoard - create new board with a random id
 exports.newBoard = async (request, response) => {
   const newBoardItem = {
     links: [],
