@@ -16,6 +16,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "firebase": "^7.19.1",
     "firebase-admin": "^8.13.0",
     "firebase-functions": "^3.6.1",
     "link-preview-generator": "0.0.4"
