@@ -5,7 +5,23 @@ const { validateLoginData, validateSignupData, errMessages } = require('../utils
 
 firebase.initializeApp(config);
 
-
+// Get user
+exports.getUser = (request, response) => {
+  let userData = {};
+  db.collection('users').doc(request.body.email).get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.userCredentials = doc.data();
+        return response.json(userData);
+      } else {
+        return response.status(404).json({ error: errMessages.userNotFound });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      return response.status(500).json({ error: errMessages.dunno });
+    });
+}
 
 // Login
 exports.loginUser = (request, response) => {

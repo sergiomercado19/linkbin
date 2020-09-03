@@ -17,9 +17,9 @@ app.put('/boards/:id/links', insertLink);
 app.delete('/boards/:id/links', removeLink);
 
 // Users
-const { loginUser, signupUser } = require('./apis/users');
+const { loginUser, signupUser, getUser } = require('./apis/users');
 app.post('/login', loginUser);
 app.post('/signup', signupUser);
-
+app.get('/user', getUser);
 
 exports.api = functions.https.onRequest(app);
