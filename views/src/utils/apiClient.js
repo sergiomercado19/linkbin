@@ -1,11 +1,17 @@
 import {
-  POST_BOARD_URL, DELETE_BOARD_URL, LINKS_URL,
-  LOGIN_URL, SIGNUP_URL
+  GET_BOARDS_URL, POST_BOARD_URL, DELETE_BOARD_URL,
+  LINKS_URL, LOGIN_URL, SIGNUP_URL
 } from './constants';
 
 /////////
 // BOARDS
 /////////
+
+const getUserBoards = () => {
+  const url = GET_BOARDS_URL();
+  const client = getClient('GET');
+  return apiCall(url, client);
+};
 
 const newBoard = (boardTitle) => {
   var headers = new Headers();
@@ -14,7 +20,7 @@ const newBoard = (boardTitle) => {
   body.append('title', boardTitle);
 
   const url = POST_BOARD_URL();
-  const client = getClient('POST');
+  const client = getClient('POST', headers, body);
   return apiCall(url, client);
 };
 
@@ -118,6 +124,7 @@ const getClient = (method, header, body, needToken = true) => {
 
 
 const apiClient = {
+  getUserBoards,
   newBoard,
   deleteBoard,
   getLinks,

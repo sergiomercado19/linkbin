@@ -10,7 +10,7 @@ exports.getUserBoards = async (request, response) => {
   results.forEach((board) => {
     // Get data from the document
     let data = board.data();
-    // Include the boardId to each result
+    // Add the boardId to each result
     data.id = board.id;
     boards.push(data)
   });
