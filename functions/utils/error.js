@@ -21,7 +21,9 @@ exports.authError = {
 
 exports.userError = {
   lookupFail: 'Database failed to lookup user',
-  signupFail: 'Authentication server failed to signup user',
+  signupFailAuth: 'Authentication service failed to signup user',
+  signupFailDb: 'Database service failed to register user',
+  sagaCompFail: 'Failed to compensate saga transaction, user is in inconsistent state',
   takenEmail: 'Email has already been registered',
   invalidEmail: 'Email is invalid',
   emptyEmail: 'Email field cannot be empty',

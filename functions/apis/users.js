@@ -7,50 +7,47 @@ const { authError, userError } = require('../utils/error');
 firebase.initializeApp(config);
 
 // Get user
-exports.getUser = (request, response) => {
+exports.getUser = async (request, response) => {
   let userData = {};
-  db.collection('users').doc(request.user.email).get()
-    .then((doc) => {
-      if (doc.exists) {
-        userData.userCredentials = doc.data();
-        return response.json(userData);
-      } else {
-        return response.status(404).json({ errors: [authError.notFound] });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      return response.status(500).json({ errors: [userError.lookupFail] });
-    });
+
+  try {
+    const user = await db.collection('users').doc(request.user.email).get();
+    if (user.exists) {
+      userData.userCredentials = user.data();
+      return response.json(userData);
+    } else {
+      return response.status(404).json({ errors: [authError.notFound] });
+    }
+  } catch (err) {
+    console.error(err);
+    return response.status(500).json({ errors: [userError.lookupFail] });
+  }
 }
 
 // Login
-exports.loginUser = (request, response) => {
+exports.loginUser = async (request, response) => {
   const user = {
     email: request.body.email,
     password: request.body.password
   }
 
+  // Validate POST data
   const { errors, valid } = validateLoginData(user);
 	if (!valid) return response.status(400).json({ errors: errors });
 
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then((data) => {
-      return data.user.getIdToken();
-    })
-    .then((token) => {
-      return response.json({ token });
-    })
-    .catch((error) => {
-      console.error(error);
-      return response.status(403).json({ errors: [authError.wrongCred] });
-    })
+  try {
+    const authData = await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
+    const token = await authData.user.getIdToken();
+    // Return token
+    return response.json({ token });
+  } catch (err) {
+    console.error(err);
+    return response.status(403).json({ errors: [authError.wrongCred] });
+  }
 };
 
 // Signup
-exports.signupUser = (request, response) => {
+exports.signupUser = async (request, response) => {
   const newUser = {
     firstName: request.body.firstName,
     lastName: request.body.lastName,
@@ -59,49 +56,52 @@ exports.signupUser = (request, response) => {
     confirmPassword: request.body.confirmPassword,
   };
 
+  // Validate POST data
   const { errors, valid } = validateSignupData(newUser);
-
   if (!valid) return response.status(400).json({ errors: errors });
 
   let token, userId;
-  db
-    .collection('users').doc(newUser.email).get()
-    .then((doc) => {
-      if (doc.exists) {
-        return response.status(400).json({ errors: [userError.takenEmail] });
-      } else {
-        return firebase.auth().createUserWithEmailAndPassword(
-          newUser.email, 
-          newUser.password
-        );
-      }
-    })
-    .then((data) => {
-      userId = data.user.uid;
-      return data.user.getIdToken();
-    })
-    .then((idtoken) => {
-      token = idtoken;
-      const userCredentials = {
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        email: newUser.email,
-        createdAt: new Date().toISOString(),
-        userId
-      };
-      return db.collection('users')
-        .doc(newUser.email)
-        .set(userCredentials);
-    })
-    .then(() => {
-      return response.status(201).json({ token });
-    })
-    .catch((err) => {
+
+  // Authentication service signup
+  try {
+    const user = await db.collection('users').doc(newUser.email).get().catch((err) => {
       console.error(err);
-      if (err.code === 'auth/email-already-in-use') {
-        return response.status(400).json({ errors: [userError.takenEmail] });
-      } else {
-        return response.status(500).json({ errors: [userError.signupFail] });
-      }
+      return response.status(500).json({ errors: [userError.lookupFail] });
     });
+
+    // Check if email is taken
+    if (user.exists) return response.status(400).json({ errors: [userError.takenEmail] });
+
+    // Create user on authentication service
+    const userCred = await firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
+    userId = userCred.user.uid;
+    const idToken = await userCred.user.getIdToken();
+    token = idToken;
+  } catch (error) {
+    console.error(error);
+    if (error.code === 'auth/email-already-in-use')
+      return response.status(400).json({ errors: [userError.takenEmail] });
+    else 
+      return response.status(500).json({ errors: [userError.signupFailAuth] });
+  }
+
+  // Database service registration
+  try {
+    // Create user credentials object
+    const userCredentials = {
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      createdAt: new Date().toISOString(),
+      userId
+    };
+    // Store user credentials in database
+    await db.collection('users').doc(newUser.email).set(userCredentials);
+    // Return token
+    return response.status(201).json({ token });
+  } catch (error) {
+    let errors = [userError.signupFailDb];
+    console.error(error);
+    return response.status(500).json({ errors: errors });
+  }
 }

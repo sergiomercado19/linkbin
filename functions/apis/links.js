@@ -64,7 +64,7 @@ exports.insertLink = async (request, response) => {
     newLink['url'] = url;
     // Insert URL link, return new
     boardData.links.push(newLink);
-  } catch(err) {
+  } catch (err) {
     return response.status(500).json({ errors: [linkError.puppeteer] });
   }
 
