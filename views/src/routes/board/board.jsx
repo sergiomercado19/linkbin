@@ -17,8 +17,8 @@ function Board() {
   useEffect(() => {
     apiClient.getLinks(boardId)
       .then((res) => {
-        // Load board if id is found
-        if (res['error']) setIsValid(false);
+        // Redirect if errors are found
+        if (res['errors']) setIsValid(false);
         else setLinks(res.links);
       });
   }, [boardId]);
