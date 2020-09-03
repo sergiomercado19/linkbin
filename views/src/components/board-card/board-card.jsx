@@ -10,12 +10,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import LinkIcon from '@material-ui/icons/Link';
 import LabelImportant from '@material-ui/icons/LabelImportant';
 
+import { URL } from '../../utils/constants';
+
 function BoardCard(props) {
   // Work around to copy a link to the clipboard
   const copyBoard = () => {
     var dummy = document.createElement("textarea");
     document.body.appendChild(dummy);
-    dummy.value = props.link.url;
+    dummy.value = `${URL}/${props.board.id}`;
     dummy.select();
     document.execCommand("copy");
     document.body.removeChild(dummy);
@@ -28,7 +30,7 @@ function BoardCard(props) {
       <Grid container spacing={2}>
 
         {/* Thumbnail */}
-        <Grid item className={classes.clickable} onClick={() => window.location.href=`/${props.board.url}`}>
+        <Grid item className={classes.clickable} onClick={() => window.location.href=`/${props.board.id}`}>
           <ButtonBase className={classes.image}>
             <LabelImportant style={{height: '75%', width: '75%'}} />
           </ButtonBase>
