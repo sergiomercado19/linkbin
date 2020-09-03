@@ -12,9 +12,10 @@ import LinkStyle from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import apiClient from '../../utils/apiClient';
 
@@ -23,26 +24,43 @@ function Login() {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isErrorOpen, setErrorOpen] = useState(false);
+
+	const handleCloseError = () => {
+		setErrorOpen(false);
+	};
 
   const handleSubmit = (e) => {
 		e.preventDefault();
 		setLoading(true);
 		apiClient.login(email, password)
 			.then((res) => {
-				localStorage.setItem('AuthToken', `Bearer ${res.data.token}`);
-				setIsLoggedIn(true);
+				switch (res.status) {
+          case 200:
+            localStorage.setItem('AuthToken', `Bearer ${res.data.token}`);
+						setLoggedIn(true);
+            break;
+          case 400:
+            // Invalid form
+          case 403:
+            // Wrong credentials
+          default:
+						setErrors(res.data.errors);
+						setErrorOpen(true);
+            break;
+        };
 			})
 			.catch((error) => {
 				console.log(error);			
-				setErrors(error.response.data);
+				// setErrors(error.response.data);
 			});
 		setLoading(false);
 	};
 
   const classes = useStyles();
 
-	if (isLoggedIn && localStorage.getItem('AuthToken')) {
+	if (isLoggedIn || localStorage.getItem('AuthToken')) {
 		return <Redirect to="/" />
 	} else {
 		return (
@@ -67,7 +85,6 @@ function Login() {
 							autoComplete="email"
 							autoFocus
 							onChange={(e) => setEmail(e.target.value)}
-							helperText="Invalid email"
 							error={email !== '' && !isEmail(email)}
 						/>
 						<TextField
@@ -80,7 +97,6 @@ function Login() {
 							type="password"
 							autoComplete="current-password"
 							onChange={(e) => setPassword(e.target.value)}
-							helperText="Invalid password"
 							error={password !== '' && isEmpty(password)}
 						/>
 						<Button
@@ -90,6 +106,7 @@ function Login() {
 							color="primary"
 							className={classes.submit}
 							onClick={handleSubmit}
+							disabled={loading || !email || !password}
 						>
 							Log In
 							{loading && <CircularProgress size={30} className={classes.progess} />}
@@ -101,12 +118,16 @@ function Login() {
 								</Link>
 							</Grid>
 						</Grid>
-						{errors.general && (
-							<Typography variant="body2" className={classes.customError}>
-								{errors.general}
-							</Typography>
-						)}
 					</form>
+					<Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={handleCloseError}>
+						<MuiAlert elevation={6} variant="filled" onClose={handleCloseError} severity="error" >
+							{errors.map((error) => (
+								<Typography key={error}>
+									{error}
+								</Typography>
+							))}
+						</MuiAlert>
+					</Snackbar>
 				</div>
 			</Container>
 		);

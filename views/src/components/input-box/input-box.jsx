@@ -9,26 +9,26 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 function InputBox(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.url.value !== '') {
       props.insertLink(e.target.url.value);
       e.target.url.value = '';
-      setOpen(true);
+      setIsAlertOpen(true);
     }
   }
 
   const handleClose = () => {
-    setOpen(false);
+    setIsAlertOpen(false);
   };
 
   return (
     <div className={classes.root}>
       <div className={classes.footer}>
         {/* Popup */}
-        <Snackbar className={classes.popup} open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar className={classes.popup} open={isAlertOpen} autoHideDuration={4000} onClose={handleClose}>
           <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="info">
             Fetching preview
           </MuiAlert>

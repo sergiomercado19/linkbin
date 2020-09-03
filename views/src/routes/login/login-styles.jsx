@@ -17,11 +17,6 @@ export const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2)
 	},
-	customError: {
-		color: 'red',
-		fontSize: '0.8rem',
-		marginTop: 10
-	},
 	progess: {
 		position: 'absolute'
 	}
