@@ -14,29 +14,68 @@ function Board() {
   const [links, setLinks] = useState([]);
   const [isValid, setIsValid] = useState(true);
 
+  // After the page renders, load the links
   useEffect(() => {
     apiClient.getLinks(boardId)
       .then((res) => {
-        // Redirect if errors are found
-        if (res['errors']) setIsValid(false);
-        else setLinks(res.links);
-      });
+        switch (res.status) {
+          case 200:
+            setLinks(res.data.links);
+            break;
+          case 404:
+            // Redirect to 404 if board not valid
+            if (res.data['errors']) setIsValid(false);
+            break;
+          default:
+            // TODO: Show errors as a popup
+            break;
+        };
+      })
+      .catch((error) => {
+        console.log(error);
+      });;
   }, [boardId]);
 
   const insertLink = (linkUrl) => {
     apiClient.insertLink(boardId, linkUrl)
       .then((res) => {
-        // Reload parent
-        setLinks(res.links);
+        switch (res.status) {
+          case 200:
+            // Reload board
+            setLinks(res.data.links);
+            break;
+          case 403:
+            // TODO: Logout user
+            break;
+          default:
+            // TODO: Show errors as a popup
+            break;
+        };
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
   const removeLink = (linkUrl) => {
     apiClient.removeLink(boardId, linkUrl)
       .then((res) => {
-        // Reload parent
-        setLinks(res.links);
-      });
+        switch (res.status) {
+          case 200:
+            // Reload board
+            setLinks(res.data.links);
+            break;
+          case 403:
+            // TODO: Logout user
+            break;
+          default:
+            // TODO: Show errors as a popup
+            break;
+        };
+      })
+      .catch((error) => {
+        console.log(error);
+      });;
   }
 
   const classes = useStyles();
