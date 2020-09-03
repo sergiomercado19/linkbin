@@ -1,5 +1,5 @@
 const { db } = require('../utils/admin');
-const { errMessages } = require('../utils/validators');
+const { boardError, authError } = require('../utils/error');
 
 // newBoard - create new board with a random id
 exports.newBoard = async (request, response) => {
@@ -12,8 +12,7 @@ exports.newBoard = async (request, response) => {
   const board = await boardRef.get();
 
   if (!board.exists) {
-    console.log('Failed to create board');
-    return response.status(404).json({ error: 'Something went wrong' });
+    return response.status(500).json({ errors: [boardError.createFail] });
   } else {
     return response.json(board.data());
   }
@@ -26,12 +25,12 @@ exports.deleteBoard = async (request, response) => {
 
   // Check if board exists
   if (!board.exists) {
-    return response.status(404).json({ error: 'Invalid board ID' });
+    return response.status(404).json({ errors: [boardError.invalidId] });
   }
 
   // Check if user owns the board
   if (board.data().owner === request.user.email) {
-    return response.status(404).json({ error: errMessages.unauth });
+    return response.status(404).json({ errors: [authError.unauth] });
   }
 
   return boardRef.delete()
@@ -40,6 +39,6 @@ exports.deleteBoard = async (request, response) => {
     })
     .catch((err) => {
 			console.error(err);
-			return response.status(500).json({ error: 'Something went wrong' });
+			return response.status(500).json({ errors: [boardError.deleteFail] });
 		});
 }

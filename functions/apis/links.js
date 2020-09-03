@@ -1,5 +1,6 @@
 const { db } = require('../utils/admin');
 const { errMessages } = require('../utils/validators');
+const { boardError, linkError, authError } = require('../utils/error');
 
 const linkPreviewGenerator = require("link-preview-generator");
 
@@ -10,7 +11,7 @@ exports.getLinks = async (request, response) => {
 
   if (!board.exists) {
     console.log('No such board!');
-    return response.status(404).json({ error: 'Invalid board ID' });
+    return response.status(404).json({ errors: [boardError.invalidId] });
   } else {
     return response.json(board.data());
   }
@@ -20,7 +21,7 @@ exports.getLinks = async (request, response) => {
 exports.insertLink = async (request, response) => {
   const url = request.body.url.trim();
 	if (url === '') {
-		return response.status(404).json({ error: 'Invalid URL' });
+		return response.status(404).json({ errors: [linkError.invalidUrl] });
   }
 
   const boardRef = db.collection('boards').doc(request.params.id);
@@ -29,7 +30,7 @@ exports.insertLink = async (request, response) => {
 
   // Check if user owns the board
   if (boardData.owner === request.user.email) {
-    return response.status(403).json({ error: errMessages.unauth });
+    return response.status(403).json({ errors: [authError.unauth] });
   }
 
   // Check if link is already on board
@@ -54,18 +55,22 @@ exports.insertLink = async (request, response) => {
     '--disable-gpu'
   ];
   // Get Link preview from URL
-  const newLink = await linkPreviewGenerator(url, puppeteerArgs);
-  newLink['url'] = url;
+  try {
+    const newLink = await linkPreviewGenerator(url, puppeteerArgs);
+    newLink['url'] = url;
+    // Insert URL link, return new
+    boardData.links.push(newLink);
+  } catch(err) {
+    return response.status(500).json({ errors: [linkError.puppeteer] });
+  }
 
-  // Insert link, return new
-  boardData.links.push(newLink);
   return boardRef.update(boardData)
     .then(() => {
       return response.json(boardData);
     })
     .catch((err) => {
 			console.error(err);
-			return response.status(500).json({ error: 'Something went wrong' });
+			return response.status(500).json({ errors: [linkError.insertFail] });
 		});
 };
 
@@ -73,7 +78,7 @@ exports.insertLink = async (request, response) => {
 exports.removeLink = async (request, response) => {
   const url = request.body.url.trim();
 	if (url === '') {
-		return response.status(404).json({ error: 'Invalid URL' });
+		return response.status(404).json({ errors: [linkError.invalidUrl] });
   }
 
   const boardRef = db.collection('boards').doc(request.params.id);
@@ -82,7 +87,7 @@ exports.removeLink = async (request, response) => {
 
   // Check if user owns the board
   if (boardData.owner === request.user.email) {
-    return response.status(403).json({ error: errMessages.unauth });
+    return response.status(403).json({ errors: [authError.unauth] });
   }
   
   // Remove link, return new
@@ -98,6 +103,6 @@ exports.removeLink = async (request, response) => {
     })
     .catch((err) => {
 			console.error(err);
-			return response.status(500).json({ error: 'Something went wrong' });
+			return response.status(500).json({ errors: [linkError.removeFail] });
 		});
 };

@@ -1,3 +1,5 @@
+const { userError } = require('./error');
+
 const isEmail = require('validator/lib/isEmail');
 
 const isEmpty = (string) => {
@@ -6,9 +8,9 @@ const isEmpty = (string) => {
 };
 
 exports.validateLoginData = (data) => {
-  let errors = {};
-  if (isEmpty(data.email)) errors.email = errMessages.empty;
-  if (isEmpty(data.password)) errors.password = errMessages.empty;
+  let errors = [];
+  if (isEmpty(data.email)) errors.push(userError.emptyEmail);
+  if (isEmpty(data.password)) errors.push(userError.emptyPassword);
   return {
     errors,
     valid: Object.keys(errors).length === 0
@@ -16,34 +18,22 @@ exports.validateLoginData = (data) => {
 };
 
 exports.validateSignupData = (data) => {
-	let errors = {};
+	let errors = [];
 
 	if (isEmpty(data.email)) {
-		errors.email = errMessages.empty;
+		errors.push(userError.emptyEmail);
 	} else if (!isEmail(data.email)) {
-		errors.email = errMessages.invalidEmail;
+		errors.push(userError.invalidEmail);
 	}
 
-	if (isEmpty(data.firstName)) errors.firstName = errMessages.empty;
-	if (isEmpty(data.lastName)) errors.lastName = errMessages.empty;
+	if (isEmpty(data.firstName)) errors.push(userError.emptyFirstName);
+	if (isEmpty(data.lastName)) errors.push(userError.emptyLastName);
 
-	if (isEmpty(data.password)) errors.password = errMessages.empty;
-	if (data.password !== data.confirmPassword) errors.confirmPassword = errMessages.diffPasswords;
+	if (isEmpty(data.password)) errors.push(userError.emptyPassword);
+	if (data.password !== data.confirmPassword) errors.push(userError.diffPasswords);
 
 	return {
 		errors,
 		valid: Object.keys(errors).length === 0
 	};
 };
-
-exports.errMessages = {
-  wrongCred: "Wrong credentials",
-  empty: "Field cannot be empty",
-  invalidEmail: "Email is invalid",
-  takenEmail: "Email has already been registered",
-  diffPasswords: "Passwords do not match",
-  dunno: "Something went wrong",
-  userNotFound: "User not found",
-  unauth: "Unauthorized",
-  invalidToken: "Invalid token"
-}

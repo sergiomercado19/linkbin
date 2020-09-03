@@ -1,7 +1,8 @@
 const firebase = require('firebase');
 const { admin, db } = require('../utils/admin');
 const config = require('../utils/config');
-const { validateLoginData, validateSignupData, errMessages } = require('../utils/validators');
+const { validateLoginData, validateSignupData } = require('../utils/validators');
+const { authError, userError } = require('../utils/error');
 
 firebase.initializeApp(config);
 
@@ -14,12 +15,12 @@ exports.getUser = (request, response) => {
         userData.userCredentials = doc.data();
         return response.json(userData);
       } else {
-        return response.status(404).json({ error: errMessages.userNotFound });
+        return response.status(404).json({ errors: [authError.notFound] });
       }
     })
     .catch((error) => {
       console.error(error);
-      return response.status(500).json({ error: errMessages.dunno });
+      return response.status(500).json({ errors: [userError.lookupFail] });
     });
 }
 
@@ -31,7 +32,7 @@ exports.loginUser = (request, response) => {
   }
 
   const { errors, valid } = validateLoginData(user);
-	if (!valid) return response.status(400).json({ error: errors });
+	if (!valid) return response.status(400).json({ errors: errors });
 
   firebase
     .auth()
@@ -44,7 +45,7 @@ exports.loginUser = (request, response) => {
     })
     .catch((error) => {
       console.error(error);
-      return response.status(403).json({ error: errMessages.wrongCred});
+      return response.status(403).json({ errors: [authError.wrongCred] });
     })
 };
 
@@ -58,16 +59,16 @@ exports.signupUser = (request, response) => {
     confirmPassword: request.body.confirmPassword,
   };
 
-  const { valid, errors } = validateSignupData(newUser);
+  const { errors, valid } = validateSignupData(newUser);
 
-  if (!valid) return response.status(400).json({ error: errors });
+  if (!valid) return response.status(400).json({ errors: errors });
 
   let token, userId;
   db
     .collection('users').doc(newUser.email).get()
     .then((doc) => {
       if (doc.exists) {
-        return response.status(400).json({ error: errMessages.takenEmail });
+        return response.status(400).json({ errors: [userError.takenEmail] });
       } else {
         return firebase.auth().createUserWithEmailAndPassword(
           newUser.email, 
@@ -98,9 +99,9 @@ exports.signupUser = (request, response) => {
     .catch((err) => {
       console.error(err);
       if (err.code === 'auth/email-already-in-use') {
-        return response.status(400).json({ error: errMessages.takenEmail });
+        return response.status(400).json({ errors: [userError.takenEmail] });
       } else {
-        return response.status(500).json({ error: errMessages.dunno });
+        return response.status(500).json({ errors: [userError.signupFail] });
       }
     });
 }

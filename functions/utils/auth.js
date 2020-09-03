@@ -1,5 +1,5 @@
 const { admin, db } = require('./admin');
-const { errMessages } = require('../utils/validators');
+const { authError } = require('../utils/error');
 
 module.exports = (request, response, next) => {
 	let idToken;
@@ -7,7 +7,7 @@ module.exports = (request, response, next) => {
 		idToken = request.headers.authorization.split('Bearer ')[1];
 	} else {
 		console.error('No token found');
-		return response.status(403).json({ error: errMessages.unauth });
+		return response.status(403).json({ errors: [authError.unauth] });
 	}
 	admin
 		.auth()
@@ -22,6 +22,6 @@ module.exports = (request, response, next) => {
 		})
 		.catch((err) => {
 			console.error('Error while verifying token', err);
-			return response.status(403).json({ error: errMessages.invalidToken });
+			return response.status(403).json({ errors: [authError.invalidToken] });
 		});
 };
