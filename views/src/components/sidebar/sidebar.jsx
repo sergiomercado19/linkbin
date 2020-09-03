@@ -12,9 +12,14 @@ import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import LoginIcon from '@material-ui/icons/AccountCircle';
 import SignupIcon from '@material-ui/icons/PersonAdd';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
 
 function Sidebar(props) {
   const classes = useStyles();
+
+  const handleLogout = () => {
+    localStorage.removeItem('AuthToken');
+  };
 
   return (
     <>
@@ -43,6 +48,10 @@ function Sidebar(props) {
         <ListItem component={Link} to={'/signup'} button key="signup">
           <ListItemIcon> <SignupIcon /> </ListItemIcon>
           <ListItemText primary="Signup" />
+        </ListItem>
+        <ListItem button key="logout" onClick={handleLogout}>
+          <ListItemIcon> <LogoutIcon /> </ListItemIcon>
+          <ListItemText primary="Logout" />
         </ListItem>
       </List>
     </>
