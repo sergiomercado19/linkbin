@@ -6,6 +6,7 @@ exports.boardError = {
 
 exports.linkError = {
   invalidUrl: 'Invalid link URL',
+  emptyUrl: 'URL field cannot be empty',
   puppeteer: 'Puppeteer failed to get preview',
   insertFail: 'Database failed to insert link',
   removeFail: 'Database failed to remove link',

@@ -19,6 +19,10 @@ exports.getLinks = async (request, response) => {
 
 // insertLink - adds a link to a given board
 exports.insertLink = async (request, response) => {
+  if (!request.body.url) {
+		return response.status(404).json({ errors: [linkError.emptyUrl] });
+  }
+
   const url = request.body.url.trim();
 	if (url === '') {
 		return response.status(404).json({ errors: [linkError.invalidUrl] });
