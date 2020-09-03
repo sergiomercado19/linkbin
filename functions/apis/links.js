@@ -61,8 +61,10 @@ exports.insertLink = async (request, response) => {
   try {
     const newLink = await linkPreviewGenerator(url, puppeteerArgs);
     newLink['url'] = url;
-    // Insert URL link, return new
+    // Insert URL link
     boardData.links.push(newLink);
+    // Update lastModified time
+    boardData.lastModified = Date.now();
   } catch (err) {
     return response.status(500).json({ errors: [linkError.puppeteer] });
   }
@@ -93,13 +95,16 @@ exports.removeLink = async (request, response) => {
     return response.status(403).json({ errors: [authError.unauth] });
   }
   
-  // Remove link, return new
+  // Remove link
   let index = boardData.links.length - 1;
   while (index >= 0) {
     if (boardData.links[index].url === url)
       boardData.links.splice(index, 1);
     index -= 1;
   }
+  // Update lastModified time
+  boardData.lastModified = Date.now();
+
   return boardRef.update(boardData)
     .then(() => {
       return response.json(boardData);

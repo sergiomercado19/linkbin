@@ -7,7 +7,12 @@ import {
 // BOARDS
 /////////
 
-const newBoard = () => {
+const newBoard = (boardTitle) => {
+  var headers = new Headers();
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  var body = new URLSearchParams();
+  body.append('title', boardTitle);
+
   const url = POST_BOARD_URL();
   const client = getClient('POST');
   return apiCall(url, client);

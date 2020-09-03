@@ -5,7 +5,10 @@ const { boardError, authError } = require('../utils/errors');
 exports.newBoard = async (request, response) => {
   const newBoardItem = {
     links: [],
+    title: request.body.title,
     owner: request.user.email,
+    createdAt: Date.now(),
+    lastModified: Date.now(),
   };
 
   const boardRef = await db.collection('boards').add(newBoardItem);
