@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { useStyles } from './sidebar-styles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -24,25 +25,33 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        <ListItem button key="home">
-          <ListItemIcon> <HomeIcon /> </ListItemIcon>
-          <ListItemText primary="Home" />
-        </ListItem>
-        <ListItem button key="boards">
-          <ListItemIcon> <ListIcon /> </ListItemIcon>
-          <ListItemText primary="My Boards" />
-        </ListItem>
+        <Link to="/">
+          <ListItem button key="home">
+            <ListItemIcon> <HomeIcon /> </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+        </Link>
+        <Link to="/me/boards">
+          <ListItem button key="boards">
+            <ListItemIcon> <ListIcon /> </ListItemIcon>
+            <ListItemText primary="My Boards" />
+          </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>
-        <ListItem button key="login">
-          <ListItemIcon> <LoginIcon /> </ListItemIcon>
-          <ListItemText primary="Login" />
-        </ListItem>
-        <ListItem button key="signup">
-          <ListItemIcon> <SignupIcon /> </ListItemIcon>
-          <ListItemText primary="Signup" />
-        </ListItem>
+        <Link to="/login">
+          <ListItem button key="login">
+            <ListItemIcon> <LoginIcon /> </ListItemIcon>
+            <ListItemText primary="Login" />
+          </ListItem>
+        </Link>
+        <Link to="/signup">
+          <ListItem button key="signup">
+            <ListItemIcon> <SignupIcon /> </ListItemIcon>
+            <ListItemText primary="Signup" />
+          </ListItem>
+        </Link>
       </List>
     </>
   );
