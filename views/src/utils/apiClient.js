@@ -111,8 +111,8 @@ const getClient = (method, header, body, needToken = true) => {
 
   const headers = header || defaultHeaders;
   // Get user token from local storage
-  let token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjUxMDM2YWYyZDgzOWE4NDJhZjQzY2VjZmJiZDU4YWYxYTc1OGVlYTIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vbGlua2Jpbi1hZWE5YiIsImF1ZCI6ImxpbmtiaW4tYWVhOWIiLCJhdXRoX3RpbWUiOjE1OTkxMzEwMDMsInVzZXJfaWQiOiI0UXRJN1NNS0p5T1NuMWRsZVBFSU9IOXBGZUozIiwic3ViIjoiNFF0STdTTUtKeU9TbjFkbGVQRUlPSDlwRmVKMyIsImlhdCI6MTU5OTEzMTAwMywiZXhwIjoxNTk5MTM0NjAzLCJlbWFpbCI6InRlc3QzQGVtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0M0BlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.s_n7hNiW98LinfsUw8YWkYBsA6c2u4JJqyCuR4t20z0j5DccIj0903pfQvR_7YCY4wk-z4KpzJWROnA-WJw1xVSLi0vhuGuNdVNRnJi4mWV-PjPZNgrHxR2-FB0DBl5WpdEFObhL1U9i4kPTYESpsQQHiWQZfl4Z5OEk1WkJOnV-6xOR0hd0lGj1sdohfzNf2qjp71xhoMNEnkcTMTBbfh5CmbPERRi5tI-KLfKlni1Qzja5IzGCxQVgOYvJvUMy4W6isMSfpizchouzrku7DLTu5IUUE2u9vIiFU8P-W1grhu7msYCx6N67ZuvZBsR6cfuWbTbXgSRGqXNApVS-7Q";
-  if (needToken) headers.append('Authorization', `Bearer ${token}`);
+  let token = localStorage.getItem('AuthToken');
+  if (needToken) headers.append('Authorization', token);
   
   const client = {
     method,

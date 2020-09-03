@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect } from 'react-router-dom'
-import { useStyles } from './board-styles';
+import { Redirect } from 'react-router-dom'
+import { useStyles } from './my-boards-styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import InputBox from '../../components/input-box';
-import LinkCard from '../../components/link-card';
+import BoardCard from '../../components/board-card';
 
 import apiClient from '../../utils/apiClient';
 
-function Board() {
-  let { boardId } = useParams();
-  const [links, setLinks] = useState([]);
+function MyBoards() {
+  const [boards, setBoards] = useState([]);
   const [isValid, setIsValid] = useState(true);
 
-  // After the page renders, load the links
+  // After the page renders, load the boards
   useEffect(() => {
-    apiClient.getLinks(boardId)
+    apiClient.getUserBoards()
       .then((res) => {
         switch (res.status) {
           case 200:
-            setLinks(res.data.links);
+            setBoards(res.data);
             break;
-          case 404:
-            // Redirect to 404 if board not valid
-            if (res.data['errors']) setIsValid(false);
+          case 403:
+            // Logout user
+            localStorage.removeItem('AuthToken');
             break;
           default:
             // TODO: Show errors as a popup
@@ -33,19 +31,20 @@ function Board() {
       })
       .catch((error) => {
         console.log(error);
-      });;
-  }, [boardId]);
+      });
+  }, []);
 
-  const insertLink = (linkUrl) => {
-    apiClient.insertLink(boardId, linkUrl)
+  const newBoard = (boardTitle) => {
+    apiClient.newBoard(boardTitle)
       .then((res) => {
         switch (res.status) {
           case 200:
             // Reload board
-            setLinks(res.data.links);
+            setBoards(res.data);
             break;
           case 403:
-            // TODO: Logout user
+            // Logout user
+            localStorage.removeItem('AuthToken');
             break;
           default:
             // TODO: Show errors as a popup
@@ -57,16 +56,17 @@ function Board() {
       });
   }
 
-  const removeLink = (linkUrl) => {
-    apiClient.removeLink(boardId, linkUrl)
+  const deleteBoard = (boardId) => {
+    apiClient.deleteBoard(boardId)
       .then((res) => {
         switch (res.status) {
           case 200:
             // Reload board
-            setLinks(res.data.links);
+            setBoards(res.data);
             break;
           case 403:
-            // TODO: Logout user
+            // Logout user
+            localStorage.removeItem('AuthToken');
             break;
           default:
             // TODO: Show errors as a popup
@@ -83,14 +83,11 @@ function Board() {
   if (isValid) {
     return (
       <Container className={classes.boardSpace}>
-        {/* New link input */}
-        <InputBox insertLink={insertLink} />
-  
-        {/* Links */}
+        {/* Boards */}
         <Grid container justify="center" spacing={3}>
-          {links.map((link) => (
-            <Grid key={link.url} item xs={6}>
-              <LinkCard link={link} removeLink={removeLink}/>
+          {boards.map((board) => (
+            <Grid key={board.id} item xs={12}>
+              <BoardCard board={board} deleteBoard={deleteBoard}/>
             </Grid>
           ))}
         </Grid>
@@ -102,4 +99,4 @@ function Board() {
 
 }
 
-export default Board;
+export default MyBoards;

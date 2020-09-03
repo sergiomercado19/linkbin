@@ -14,6 +14,7 @@ import { Switch, Route } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/core';
 
 import Home from '../routes/home';
+import MyBoards from '../routes/my-boards';
 import Board from '../routes/board';
 import Login from '../routes/login';
 import Signup from '../routes/signup';
@@ -122,11 +123,11 @@ function App() {
         <main className={classes.content}>
           <Switch>
             <Route path="/" component={Home} exact />
+            <Route path="/me/boards" component={MyBoards} exact />
             <Route path="/notfound" component={NotFound} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/signup" component={Signup} exact />
             <Route path="/:boardId" component={Board} />
-            {/* <Route path="/me/boards" component={} /> */}
             <Route component={NotFound} />
           </Switch>
         </main>
