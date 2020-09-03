@@ -1,5 +1,5 @@
 const { admin, db } = require('./admin');
-const { authError } = require('../utils/error');
+const { authError } = require('../utils/errors');
 
 module.exports = async (request, response, next) => {
 	let idToken;

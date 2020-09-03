@@ -1,6 +1,5 @@
-const { userError } = require('./error');
-
 const isEmail = require('validator/lib/isEmail');
+const { userError } = require('./errors');
 
 const isEmpty = (string) => {
 	return !string || string.trim() === '';

@@ -1,5 +1,5 @@
 const { db } = require('../utils/admin');
-const { boardError, authError } = require('../utils/error');
+const { boardError, authError } = require('../utils/errors');
 
 // newBoard - create new board with a random id
 exports.newBoard = async (request, response) => {

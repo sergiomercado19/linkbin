@@ -1,6 +1,6 @@
 const { db } = require('../utils/admin');
 const { errMessages } = require('../utils/validators');
-const { boardError, linkError, authError } = require('../utils/error');
+const { boardError, linkError, authError } = require('../utils/errors');
 
 const linkPreviewGenerator = require("link-preview-generator");
 
