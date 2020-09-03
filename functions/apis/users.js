@@ -70,7 +70,7 @@ exports.signupUser = async (request, response) => {
     });
 
     // Check if email is taken
-    if (user.exists) return response.status(400).json({ errors: [userError.takenEmail] });
+    if (user.exists) return response.status(409).json({ errors: [userError.takenEmail] });
 
     // Create user on authentication service
     const userCred = await firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
@@ -80,7 +80,7 @@ exports.signupUser = async (request, response) => {
   } catch (error) {
     console.error(error);
     if (error.code === 'auth/email-already-in-use')
-      return response.status(400).json({ errors: [userError.takenEmail] });
+      return response.status(409).json({ errors: [userError.takenEmail] });
     else 
       return response.status(500).json({ errors: [userError.signupFailAuth] });
   }

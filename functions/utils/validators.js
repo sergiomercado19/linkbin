@@ -23,11 +23,10 @@ exports.validateLoginData = (data) => {
 exports.validateSignupData = (data) => {
 	let errors = [];
 
-	if (isEmpty(data.email)) {
+	if (isEmpty(data.email))
 		errors.push(userError.emptyEmail);
-	} else if (!isEmail(data.email)) {
+	else if (!isEmail(data.email))
 		errors.push(userError.invalidEmail);
-	}
 
 	if (isEmpty(data.firstName))
 		errors.push(userError.emptyFirstName);
@@ -36,7 +35,9 @@ exports.validateSignupData = (data) => {
 
 	if (isEmpty(data.password) || isEmpty(data.confirmPassword))
 		errors.push(userError.emptyPassword);
-	if (data.password !== data.confirmPassword)
+	else if (data.password.length < 6)
+		errors.push(userError.weakPassword);
+	else if (data.password !== data.confirmPassword)
 		errors.push(userError.diffPasswords);
 
 	return {

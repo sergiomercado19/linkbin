@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStyles } from './login-styles';
+import { useStyles } from './signup-styles';
 import { Link, Redirect } from "react-router-dom";
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'validator/lib/isEmpty';
@@ -10,7 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import LinkStyle from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import SignupIcon from '@material-ui/icons/PersonAddOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -19,14 +19,17 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 import apiClient from '../../utils/apiClient';
 
-function Login() {
+function Signup() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isSignedUp, setSignedUp] = useState(false);
   const [isErrorOpen, setErrorOpen] = useState(false);
 	
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const handleCloseError = () => {
 		setErrorOpen(false);
@@ -35,12 +38,16 @@ function Login() {
   const handleSubmit = (e) => {
 		e.preventDefault();
 		setLoading(true);
-		apiClient.login(email, password)
+		const form = {
+			firstName, lastName, email,
+			password, confirmPassword
+		}
+		apiClient.signup(form)
 			.then((res) => {
 				switch (res.status) {
-          case 200:
+          case 201:
             localStorage.setItem('AuthToken', `Bearer ${res.data.token}`);
-						setLoggedIn(true);
+						setSignedUp(true);
             break;
           default:
 						setErrors(res.data.errors);
@@ -57,7 +64,7 @@ function Login() {
 
   const classes = useStyles();
 
-	if (isLoggedIn || localStorage.getItem('AuthToken')) {
+	if (isSignedUp || localStorage.getItem('AuthToken')) {
 		return <Redirect to="/" />
 	} else {
 		return (
@@ -65,34 +72,67 @@ function Login() {
 				<CssBaseline />
 				<div className={classes.paper}>
 					<Avatar className={classes.avatar}>
-						<LockOutlinedIcon />
+						<SignupIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Log In
+						Sign Up
 					</Typography>
 					<form className={classes.form} noValidate>
-						<TextField variant="outlined" margin="normal" fullWidth required autoFocus
-							type="email" name="email" autoComplete="email" label="Email Address" 
-							onChange={(e) => setEmail(e.target.value)}
-							error={email !== '' && !isEmail(email)}
-						/>
-						<TextField variant="outlined" margin="normal" fullWidth required
-							type="password" name="password" autoComplete="password" label="Password"
-							onChange={(e) => setPassword(e.target.value)}
-							error={password !== '' && isEmpty(password)}
-						/>
+						<Grid container spacing={2}>
+							{/* First name */}
+							<Grid item xs={12} sm={6}>
+								<TextField variant="outlined" fullWidth required
+									type="text" name="firstName" autoComplete="firstName" label="First Name"
+									onChange={(e) => setFirstName(e.target.value)}
+									error={firstName !== '' && isEmpty(firstName)}
+								/>
+							</Grid>
+
+							{/* Last name */}
+							<Grid item xs={12} sm={6}>
+								<TextField variant="outlined" fullWidth required
+									type="text" name="lastName" autoComplete="lastName" label="Last Name"
+									onChange={(e) => setLastName(e.target.value)}
+									error={lastName !== '' && isEmpty(lastName)}
+								/>
+							</Grid>
+
+							{/* Email */}
+							<Grid item xs={12}>
+								<TextField variant="outlined" fullWidth required
+									type="email" name="email" autoComplete="email" label="Email Address"
+									onChange={(e) => setEmail(e.target.value)}
+									error={email !== '' && !isEmail(email)}
+								/>
+							</Grid>
+
+							{/* Password */}
+							<Grid item xs={12}>
+								<TextField variant="outlined" fullWidth required
+									type="password" name="password" autoComplete="password" label="Password"
+									onChange={(e) => setPassword(e.target.value)}
+									error={password !== '' && isEmpty(password)}
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<TextField variant="outlined" fullWidth required
+									type="password" name="confirmPassword" autoComplete="password2" label="Confirm Password"
+									onChange={(e) => setConfirmPassword(e.target.value)}
+								/>
+							</Grid>
+						</Grid>
 						<Button variant="contained" type="submit" color="primary" fullWidth
 							className={classes.submit}
 							onClick={handleSubmit}
-							disabled={loading || !email || !password}
+							disabled={loading || !firstName || !lastName || !email || !password || !confirmPassword}
 						>
-							Log In
+							Sign Up
 							{loading && <CircularProgress size={30} className={classes.progess} />}
 						</Button>
-						<Grid container>
+						<Grid container justify="flex-end">
 							<Grid item>
-								<Link to="/signup" variant="body2" component={LinkStyle}>
-									{"Don't have an account? Sign Up"}
+								<Link to="/login" variant="body2" component={LinkStyle}>
+									{"Already have an account? Sign in"}
 								</Link>
 							</Grid>
 						</Grid>
@@ -112,4 +152,4 @@ function Login() {
 	}
 }
 
-export default Login;
+export default Signup;

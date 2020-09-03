@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
-import LoginIcon from '@material-ui/icons/ExitToApp';
+import LoginIcon from '@material-ui/icons/AccountCircle';
 import SignupIcon from '@material-ui/icons/PersonAdd';
 
 function Sidebar(props) {
@@ -25,33 +25,25 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        <Link to="/">
-          <ListItem button key="home">
-            <ListItemIcon> <HomeIcon /> </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-        </Link>
-        <Link to="/me/boards">
-          <ListItem button key="boards">
-            <ListItemIcon> <ListIcon /> </ListItemIcon>
-            <ListItemText primary="My Boards" />
-          </ListItem>
-        </Link>
+        <ListItem component={Link} to={'/'} button key="home">
+          <ListItemIcon> <HomeIcon /> </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem component={Link} to={'/me/boards'} button key="boards">
+          <ListItemIcon> <ListIcon /> </ListItemIcon>
+          <ListItemText primary="My Boards" />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        <Link to="/login">
-          <ListItem button key="login">
-            <ListItemIcon> <LoginIcon /> </ListItemIcon>
-            <ListItemText primary="Login" />
-          </ListItem>
-        </Link>
-        <Link to="/signup">
-          <ListItem button key="signup">
-            <ListItemIcon> <SignupIcon /> </ListItemIcon>
-            <ListItemText primary="Signup" />
-          </ListItem>
-        </Link>
+        <ListItem component={Link} to={'/login'} button key="login">
+          <ListItemIcon> <LoginIcon /> </ListItemIcon>
+          <ListItemText primary="Login" />
+        </ListItem>
+        <ListItem component={Link} to={'/signup'} button key="signup">
+          <ListItemIcon> <SignupIcon /> </ListItemIcon>
+          <ListItemText primary="Signup" />
+        </ListItem>
       </List>
     </>
   );

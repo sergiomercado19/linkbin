@@ -67,14 +67,17 @@ const login = (email, password) => {
   return apiCall(url, client);
 };
 
-const signup = (email, password) => {
+const signup = (form) => {
   var headers = new Headers();
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
   var body = new URLSearchParams();
-  body.append('email', email);
-  body.append('password', password);
+  body.append('firstName', form.firstName);
+  body.append('lastName', form.lastName);
+  body.append('email', form.email);
+  body.append('password', form.password);
+  body.append('confirmPassword', form.confirmPassword);
 
-  const url = LOGIN_URL;
+  const url = SIGNUP_URL;
   const client = getClient('POST', headers, body);
   return apiCall(url, client);
 };

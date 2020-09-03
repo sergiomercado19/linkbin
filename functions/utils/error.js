@@ -30,5 +30,6 @@ exports.userError = {
   emptyPassword: 'Password field cannot be empty',
   emptyFirstName: 'FirstName field cannot be empty',
   emptyLastName: 'LastName field cannot be empty',
+  weakPassword: 'Password should be at least 6 characters',
   diffPasswords: 'Passwords do not match',
 };
