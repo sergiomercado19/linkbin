@@ -43,5 +43,7 @@ exports.errMessages = {
   takenEmail: "Email has already been registered",
   diffPasswords: "Passwords do not match",
   dunno: "Something went wrong",
-  userNotFound: "User not found"
+  userNotFound: "User not found",
+  unauth: "Unauthorized",
+  invalidToken: "Invalid token"
 }

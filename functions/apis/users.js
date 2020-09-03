@@ -8,7 +8,7 @@ firebase.initializeApp(config);
 // Get user
 exports.getUser = (request, response) => {
   let userData = {};
-  db.collection('users').doc(request.body.email).get()
+  db.collection('users').doc(request.user.email).get()
     .then((doc) => {
       if (doc.exists) {
         userData.userCredentials = doc.data();

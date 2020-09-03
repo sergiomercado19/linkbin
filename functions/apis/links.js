@@ -1,4 +1,6 @@
 const { db } = require('../utils/admin');
+const { errMessages } = require('../utils/validators');
+
 const linkPreviewGenerator = require("link-preview-generator");
 
 // getLinks - gets all the links in a given board
@@ -24,6 +26,11 @@ exports.insertLink = async (request, response) => {
   const boardRef = db.collection('boards').doc(request.params.id);
   let board = await boardRef.get();
   let boardData = board.data();
+
+  // Check if user owns the board
+  if (boardData.owner === request.user.email) {
+    return response.status(403).json({ error: errMessages.unauth });
+  }
 
   // Check if link is already on board
   let found = boardData.links.reduce((total, curr) => {
@@ -72,6 +79,11 @@ exports.removeLink = async (request, response) => {
   const boardRef = db.collection('boards').doc(request.params.id);
   let board = await boardRef.get();
   let boardData = board.data();
+
+  // Check if user owns the board
+  if (boardData.owner === request.user.email) {
+    return response.status(403).json({ error: errMessages.unauth });
+  }
   
   // Remove link, return new
   let index = boardData.links.length - 1;
