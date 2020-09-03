@@ -10,7 +10,6 @@ exports.getLinks = async (request, response) => {
   const board = await boardRef.get();
 
   if (!board.exists) {
-    console.log('No such board!');
     return response.status(404).json({ errors: [boardError.invalidId] });
   } else {
     return response.json(board.data());

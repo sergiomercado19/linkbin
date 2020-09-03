@@ -15,6 +15,7 @@ import { ThemeProvider } from '@material-ui/core';
 
 import Home from '../routes/home';
 import Board from '../routes/board';
+import Login from '../routes/login';
 import NotFound from '../routes/not-found';
 
 import Sidebar from '../components/sidebar';
@@ -123,9 +124,11 @@ function App() {
         <main className={classes.content}>
           <Switch>
             <Route path="/" component={Home} exact />
-            <Route path="/notfound" component={NotFound} />
+            <Route path="/notfound" component={NotFound} exact />
+            <Route path="/login" component={Login} exact />
             <Route path="/:boardId" component={Board} />
             {/* <Route path="/me/boards" component={} /> */}
+            <Route component={NotFound} />
           </Switch>
         </main>
       </div>
