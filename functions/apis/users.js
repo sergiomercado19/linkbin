@@ -62,7 +62,7 @@ exports.signupUser = async (request, response) => {
 
   let token, userId;
 
-  // Authentication service signup
+  // Saga (part 1): Authentication service signup
   try {
     const user = await db.collection('users').doc(newUser.email).get().catch((err) => {
       console.error(err);
@@ -85,7 +85,7 @@ exports.signupUser = async (request, response) => {
       return response.status(500).json({ errors: [userError.signupFailAuth] });
   }
 
-  // Database service registration
+  // Saga (part 2): Database service registration
   try {
     // Create user credentials object
     const userCredentials = {
@@ -101,6 +101,10 @@ exports.signupUser = async (request, response) => {
     return response.status(201).json({ token });
   } catch (error) {
     let errors = [userError.signupFailDb];
+
+    // Compensate saga (part 1)
+    await admin.auth().deleteUser(userId).catch(() => {errors.push(userError.sagaCompFail)});
+    
     console.error(error);
     return response.status(500).json({ errors: errors });
   }
