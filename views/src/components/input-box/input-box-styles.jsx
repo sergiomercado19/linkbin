@@ -2,12 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
-    left: 0,
+    left: 0 + theme.spacing(7) + 1,
     right: 0,
     height: 'fit-content',
-    width: '100%',
     zIndex: 1,
   },
   footer: {
