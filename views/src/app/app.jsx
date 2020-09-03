@@ -21,7 +21,7 @@ import NotFound from '../routes/not-found';
 
 import Sidebar from '../components/sidebar';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 // These styles could not be extracted to the '-styles' file
 const useSidebarStyles = makeStyles((theme) => ({
@@ -54,9 +54,6 @@ const useSidebarStyles = makeStyles((theme) => ({
     }),
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
-    },
   },
 }));
 
