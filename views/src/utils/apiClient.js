@@ -1,3 +1,8 @@
+// APIClient
+//
+// A compilation of modular functions to interact with all
+// the backend API endpoints.
+
 import { getSession } from './session';
 import {
   GET_BOARDS_URL, POST_BOARD_URL, DELETE_BOARD_URL,

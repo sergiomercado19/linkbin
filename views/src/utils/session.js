@@ -1,3 +1,8 @@
+// Session Management
+// 
+// These functions are the foundation of Linkbin's
+// state/session management
+
 export const getSession = { 
   token: () => localStorage.getItem('AuthToken'),
   email: () => localStorage.getItem('Email'),
