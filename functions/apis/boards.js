@@ -15,6 +15,16 @@ exports.getUserBoards = async (request, response) => {
     boards.push(data)
   });
 
+  // Sort board by lastModified timestamp
+  boards.sort((a, b) => {
+    const keyA = a.lastModified;
+    const keyB = b.lastModified;
+    // Compare the 2 dates
+    if (keyA > keyB) return -1;
+    if (keyA < keyB) return 1;
+    return 0;
+  });
+
   return response.json(boards);
 }
 
@@ -34,7 +44,7 @@ exports.newBoard = async (request, response) => {
   if (!board.exists) {
     return response.status(500).json({ errors: [boardError.createFail] });
   } else {
-    return response.json(board.data());
+    return response.status(201).json(board.data());
   }
 }
 
@@ -49,13 +59,13 @@ exports.deleteBoard = async (request, response) => {
   }
 
   // Check if user owns the board
-  if (board.data().owner === request.user.email) {
-    return response.status(404).json({ errors: [authError.unauth] });
+  if (board.data().owner !== request.user.email) {
+    return response.status(403).json({ errors: [authError.unauth] });
   }
 
   return boardRef.delete()
     .then(() => {
-      return response.end();
+      return response.status(204).json({ });
     })
     .catch((err) => {
 			console.error(err);

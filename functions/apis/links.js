@@ -32,7 +32,7 @@ exports.insertLink = async (request, response) => {
   let boardData = board.data();
 
   // Check if user owns the board
-  if (boardData.owner === request.user.email) {
+  if (boardData.owner !== request.user.email) {
     return response.status(403).json({ errors: [authError.unauth] });
   }
 
@@ -91,7 +91,7 @@ exports.removeLink = async (request, response) => {
   let boardData = board.data();
 
   // Check if user owns the board
-  if (boardData.owner === request.user.email) {
+  if (boardData.owner !== request.user.email) {
     return response.status(403).json({ errors: [authError.unauth] });
   }
   
