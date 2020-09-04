@@ -11,11 +11,13 @@ import apiClient from '../../utils/apiClient';
 
 function Board() {
   let { boardId } = useParams();
+  const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState([]);
   const [isValid, setIsValid] = useState(true);
 
   // After the page renders, load the links
   useEffect(() => {
+    setLoading(true);
     apiClient.getLinks(boardId)
       .then((res) => {
         switch (res.status) {
@@ -30,13 +32,16 @@ function Board() {
             // TODO: Show errors as a popup
             break;
         };
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
-      });;
+        setLoading(false);
+      });
   }, [boardId]);
 
   const insertLink = (linkUrl) => {
+    setLoading(true);
     apiClient.insertLink(boardId, linkUrl)
       .then((res) => {
         switch (res.status) {
@@ -51,13 +56,16 @@ function Board() {
             // TODO: Show errors as a popup
             break;
         };
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   }
 
   const removeLink = (linkUrl) => {
+    setLoading(true);
     apiClient.removeLink(boardId, linkUrl)
       .then((res) => {
         switch (res.status) {
@@ -72,9 +80,11 @@ function Board() {
             // TODO: Show errors as a popup
             break;
         };
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   }
 
@@ -83,6 +93,9 @@ function Board() {
   if (isValid) {
     return (
       <Container className={classes.boardSpace}>
+        {/* Loading */}
+        {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
+
         {/* New link input */}
         <InputBox insertLink={insertLink} />
   

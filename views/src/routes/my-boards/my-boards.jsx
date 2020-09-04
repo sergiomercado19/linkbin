@@ -19,6 +19,7 @@ import apiClient from '../../utils/apiClient';
 import isEmpty from 'validator/lib/isEmpty';
 
 function MyBoards() {
+  const [isLoading, setLoading] = useState(false);
   const [boards, setBoards] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -37,6 +38,7 @@ function MyBoards() {
   }, []);
 
   const getPageContent = () => {
+    setLoading(true);
     apiClient.getUserBoards()
     .then((res) => {
       switch (res.status) {
@@ -51,13 +53,16 @@ function MyBoards() {
           // TODO: Show errors as a popup
           break;
       };
+      setLoading(false);
     })
     .catch((error) => {
       console.log(error);
+      setLoading(false);
     });
   };
 
   const newBoard = (boardTitle) => {
+    setLoading(true);
     apiClient.newBoard(boardTitle)
       .then((res) => {
         switch (res.status) {
@@ -74,14 +79,17 @@ function MyBoards() {
             break;
         };
         handleClose();
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
     
   }
 
   const deleteBoard = (boardId) => {
+    setLoading(true);
     apiClient.deleteBoard(boardId)
       .then((res) => {
         switch (res.status) {
@@ -97,9 +105,11 @@ function MyBoards() {
             // TODO: Show errors as a popup
             break;
         };
+        setLoading(true);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(true);
       });
   }
 
@@ -110,6 +120,9 @@ function MyBoards() {
 	} else {
     return (
       <Container className={classes.boardSpace}>
+        {/* Loading */}
+        {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
+
         {/* Boards */}
         <Grid container justify="center" spacing={3}>
           {boards.map((board) => (

@@ -15,3 +15,49 @@ code {
 html, body, #app, #app>div {
   height: 100%
 }
+
+/* Spinner from: http://jsbin.com/roqakuxebo */
+.spinner-base {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+.spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 85px;
+  width: 85px;
+  margin: 0px auto;
+  -webkit-animation: rotation .6s infinite linear;
+  -moz-animation: rotation .6s infinite linear;
+  -o-animation: rotation .6s infinite linear;
+  animation: rotation .6s infinite linear;
+  border-left: 6px solid rgb(13,71,161);
+  border-right: 6px solid rgb(13,71,161);
+  border-bottom: 6px solid rgb(13,71,161);
+  border-top: 6px solid rgb(33,150,243);
+  border-radius: 100%;
+}
+@-webkit-keyframes rotation {
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+  from {-moz-transform: rotate(0deg);}
+  to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+  from {-o-transform: rotate(0deg);}
+  to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
