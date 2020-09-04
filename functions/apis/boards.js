@@ -1,7 +1,16 @@
+// Board API handlers
+// - getUserBoards
+// - newBoard
+// - deleteBoard
+
 const { db } = require('../utils/admin');
 const { boardError, authError } = require('../utils/errors');
 
-// newBoard - create new board with a random id
+/**
+ * Returns all the boards associated to the user authenticated in this request
+ * @param   {String} request.user.email Email is passed in during authentication.
+ * @return  {Boards} boards - List of boards.
+ */
 exports.getUserBoards = async (request, response) => {
   const query = db.collection('boards').where('owner', '==', request.user.email);
   const results = await query.get();
@@ -28,7 +37,12 @@ exports.getUserBoards = async (request, response) => {
   return response.json(boards);
 }
 
-// newBoard - create new board with a random id
+/**
+ * Creates a new board with a random ID
+ * @param   {String} request.user.email Email is passed in during authentication.
+ * @param   {String} request.body.title Title does not need to be unique.
+ * @return  {Board} newBoard - List of boards, including the one just added.
+ */
 exports.newBoard = async (request, response) => {
   const newBoardItem = {
     links: [],
@@ -51,7 +65,12 @@ exports.newBoard = async (request, response) => {
   }
 }
 
-// deleteBoard - delete a board
+/**
+ * Deletes a board with a given ID
+ * @param   {String} request.params.id Board ID is obtained from the URL param.
+ * @param   {String} request.user.email Email is passed in during authentication.
+ * @return  {Node} Empty JSON, thus the 204 status.
+ */
 exports.deleteBoard = async (request, response) => {
   const boardRef = db.collection('boards').doc(request.params.id);
   const board = await boardRef.get();
@@ -71,7 +90,7 @@ exports.deleteBoard = async (request, response) => {
       return response.status(204).json({ });
     })
     .catch((err) => {
-			console.error(err);
-			return response.status(500).json({ errors: [boardError.deleteFail] });
-		});
+      console.error(err);
+      return response.status(500).json({ errors: [boardError.deleteFail] });
+    });
 }

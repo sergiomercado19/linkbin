@@ -1,3 +1,8 @@
+// API error library
+//
+// These error messages were made readable to be displayed
+// in the frontend during a failed validation.
+
 exports.boardError = {
   invalidId: 'Invalid board ID',
   createFail: 'Database failed to create board',

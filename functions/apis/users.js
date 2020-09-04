@@ -1,12 +1,23 @@
+// Users API handlers
+// - getUser
+// - loginUser
+// - signupUser
+
 const firebase = require('firebase');
 const { admin, db } = require('../utils/admin');
-const config = require('../utils/config');
 const { validateLoginData, validateSignupData } = require('../utils/validators');
 const { authError, userError } = require('../utils/errors');
 
+// .gitignore'd file containing the config variables
+const config = require('../utils/config');
+// Initalize Firebase's Authentication service
 firebase.initializeApp(config);
 
-// Get user
+/**
+ * Gets a single user's account information
+ * @param   {String} request.user.email Email is passed in during authentication.
+ * @return  {User} user.data() - All data related to a user, stored in the database.
+ */
 exports.getUser = async (request, response) => {
   let userData = {};
 
@@ -24,7 +35,13 @@ exports.getUser = async (request, response) => {
   }
 }
 
-// Login
+/**
+ * Login a user
+ * @param   {String} request.body.email Email address from form data.
+ * @param   {String} request.body.password Password from form data.
+ * @return  {String} token - JWT token provide by Firebase's Authentication service.
+ * @return  {String} email - Email linked to this user.
+ */
 exports.loginUser = async (request, response) => {
   const user = {
     email: request.body.email,
@@ -33,7 +50,7 @@ exports.loginUser = async (request, response) => {
 
   // Validate POST data
   const { errors, valid } = validateLoginData(user);
-	if (!valid) return response.status(400).json({ errors: errors });
+  if (!valid) return response.status(400).json({ errors: errors });
 
   try {
     const authData = await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
@@ -46,7 +63,16 @@ exports.loginUser = async (request, response) => {
   }
 };
 
-// Signup
+/**
+ * Signup a user
+ * @param   {String} request.body.firstName First name from form data.
+ * @param   {String} request.body.lastName Last name from form data.
+ * @param   {String} request.body.email Email address from form data.
+ * @param   {String} request.body.password Password from form data.
+ * @param   {String} request.body.confirmPassword Password confirmation from form data.
+ * @return  {String} token - JWT token provide by Firebase's Authentication service.
+ * @return  {String} email - Email linked to this user.
+ */
 exports.signupUser = async (request, response) => {
   const newUser = {
     firstName: request.body.firstName,
@@ -72,7 +98,7 @@ exports.signupUser = async (request, response) => {
     // Check if email is taken
     if (user.exists) return response.status(409).json({ errors: [userError.takenEmail] });
 
-    // Create user on authentication service
+    // Create user on Firebase's authentication service
     const userCred = await firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
     userId = userCred.user.uid;
     const idToken = await userCred.user.getIdToken();
