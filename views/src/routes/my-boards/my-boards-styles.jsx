@@ -12,4 +12,12 @@ export const useStyles = makeStyles((theme) => ({
     paddingRight: 64,
     paddingBottom: 100,
   },
+  addButton: {
+    position: 'absolute',
+    bottom: theme.spacing(6),
+    right: theme.spacing(6),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
 }));

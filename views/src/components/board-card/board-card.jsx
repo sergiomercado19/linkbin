@@ -29,7 +29,7 @@ function BoardCard(props) {
     <Paper className={classes.paper}>
       <Grid container spacing={2}>
 
-        {/* Thumbnail */}
+        {/* Arrow */}
         <Grid item className={classes.clickable} onClick={() => window.location.href=`/${props.board.id}`}>
           <ButtonBase className={classes.image}>
             <LabelImportant style={{height: '75%', width: '75%'}} />

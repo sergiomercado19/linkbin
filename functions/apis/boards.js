@@ -44,7 +44,10 @@ exports.newBoard = async (request, response) => {
   if (!board.exists) {
     return response.status(500).json({ errors: [boardError.createFail] });
   } else {
-    return response.status(201).json(board.data());
+    // Add the boardId to the new board
+    let newBoard = board.data();
+    newBoard.id = board.id;
+    return response.status(201).json(newBoard);
   }
 }
 
