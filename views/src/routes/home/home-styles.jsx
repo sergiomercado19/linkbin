@@ -22,5 +22,7 @@ export const useStyles = makeStyles((theme) => ({
   searchbox: {
     marginTop: 40,
     width: 400,
+    backgroundColor: 'rgba(0,0,0,0.85)',
+    borderRadius: 4,
   }
 }));

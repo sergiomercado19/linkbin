@@ -38,7 +38,7 @@ function Home() {
           </Typography>
   
           {/* Searchbox */}
-          <TextField
+          <TextField variant="outlined"
             className={classes.searchbox}
             name="boardId"
             placeholder="Enter board ID"
