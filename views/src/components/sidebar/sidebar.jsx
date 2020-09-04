@@ -39,25 +39,33 @@ function Sidebar(props) {
           <ListItemIcon> <HomeIcon /> </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem component={Link} to={'/me/boards'} button key="boards">
-          <ListItemIcon> <ListIcon /> </ListItemIcon>
-          <ListItemText primary="My Boards" />
-        </ListItem>
+        {getSession() && (
+          <ListItem component={Link} to={'/me/boards'} button key="boards">
+            <ListItemIcon> <ListIcon /> </ListItemIcon>
+            <ListItemText primary="My Boards" />
+          </ListItem>
+        )}
       </List>
       <Divider />
       <List>
-        <ListItem component={Link} to={'/login'} button key="login">
-          <ListItemIcon> <LoginIcon /> </ListItemIcon>
-          <ListItemText primary="Login" />
-        </ListItem>
-        <ListItem component={Link} to={'/signup'} button key="signup">
-          <ListItemIcon> <SignupIcon /> </ListItemIcon>
-          <ListItemText primary="Signup" />
-        </ListItem>
-        <ListItem button key="logout" onClick={handleLogout}>
-          <ListItemIcon> <LogoutIcon /> </ListItemIcon>
-          <ListItemText primary="Logout" />
-        </ListItem>
+        {!getSession() && (
+          <>
+            <ListItem component={Link} to={'/login'} button key="login">
+              <ListItemIcon> <LoginIcon /> </ListItemIcon>
+              <ListItemText primary="Login" />
+            </ListItem>
+            <ListItem component={Link} to={'/signup'} button key="signup">
+              <ListItemIcon> <SignupIcon /> </ListItemIcon>
+              <ListItemText primary="Signup" />
+            </ListItem>
+          </>
+        )}
+        {getSession() && (
+          <ListItem button key="logout" onClick={handleLogout}>
+            <ListItemIcon> <LogoutIcon /> </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
+        )}
       </List>
     </>
   );
