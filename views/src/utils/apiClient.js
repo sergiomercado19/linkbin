@@ -27,7 +27,7 @@ const newBoard = (boardTitle) => {
 const deleteBoard = (boardId) => {
   const url = DELETE_BOARD_URL(boardId);
   const client = getClient('DELETE');
-  return apiCall(url, client);
+  return apiCall(url, client, false);
 };
 
 ////////

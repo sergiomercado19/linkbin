@@ -14,31 +14,35 @@ function MyBoards() {
 
   // After the page renders, load the boards
   useEffect(() => {
-    apiClient.getUserBoards()
-      .then((res) => {
-        switch (res.status) {
-          case 200:
-            setBoards(res.data);
-            break;
-          case 403:
-            // Logout user
-            localStorage.removeItem('AuthToken');
-            break;
-          default:
-            // TODO: Show errors as a popup
-            break;
-        };
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getPageContent();
   }, []);
+
+  const getPageContent = () => {
+    apiClient.getUserBoards()
+    .then((res) => {
+      switch (res.status) {
+        case 200:
+          setBoards(res.data);
+          break;
+        case 403:
+          // Logout user
+          localStorage.removeItem('AuthToken');
+          break;
+        default:
+          // TODO: Show errors as a popup
+          break;
+      };
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   const newBoard = (boardTitle) => {
     apiClient.newBoard(boardTitle)
       .then((res) => {
         switch (res.status) {
-          case 200:
+          case 201:
             // Reload board
             setBoards(res.data);
             break;
@@ -60,9 +64,9 @@ function MyBoards() {
     apiClient.deleteBoard(boardId)
       .then((res) => {
         switch (res.status) {
-          case 200:
+          case 204:
             // Reload board
-            setBoards(res.data);
+            getPageContent();
             break;
           case 403:
             // Logout user
