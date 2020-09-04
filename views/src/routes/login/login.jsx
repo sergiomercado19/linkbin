@@ -58,7 +58,7 @@ function Login() {
   const classes = useStyles();
 
 	if (isLoggedIn || localStorage.getItem('AuthToken')) {
-		return <Redirect to="/" />
+		return <Redirect to="/me/boards" />
 	} else {
 		return (
 			<Container component="main" maxWidth="xs">
