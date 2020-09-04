@@ -21,7 +21,6 @@ function Sidebar(props) {
   const handleLogout = () => {
     if (getSession()) {
       endSession();
-      window.location.reload();
     }
   };
   

@@ -8,6 +8,7 @@ import InputBox from '../../components/input-box';
 import LinkCard from '../../components/link-card';
 
 import apiClient from '../../utils/apiClient';
+import { endSession } from '../../utils/session';
 
 function Board() {
   let { boardId } = useParams();
@@ -50,7 +51,8 @@ function Board() {
             setLinks(res.data.links);
             break;
           case 403:
-            // TODO: Logout user
+            // Unauthorised user
+            endSession();
             break;
           default:
             // TODO: Show errors as a popup
@@ -74,7 +76,8 @@ function Board() {
             setLinks(res.data.links);
             break;
           case 403:
-            // TODO: Logout user
+            // Unauthorised user
+            endSession();
             break;
           default:
             // TODO: Show errors as a popup

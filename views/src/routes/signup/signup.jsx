@@ -47,7 +47,6 @@ function Signup() {
 				switch (res.status) {
           case 201:
             startSession(res.data.token);
-						window.location.reload();
             break;
           default:
 						setErrors(res.data.errors);

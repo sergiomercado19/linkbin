@@ -40,7 +40,6 @@ function Login() {
 				switch (res.status) {
           case 200:
             startSession(res.data.token);
-						window.location.reload();
             break;
           default:
 						setErrors(res.data.errors);
