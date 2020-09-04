@@ -38,8 +38,8 @@ exports.loginUser = async (request, response) => {
   try {
     const authData = await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
     const token = await authData.user.getIdToken();
-    // Return token
-    return response.json({ token });
+    // Return token and email
+    return response.json({ token, email: user.email });
   } catch (err) {
     console.error(err);
     return response.status(403).json({ errors: [authError.wrongCred] });
@@ -97,8 +97,8 @@ exports.signupUser = async (request, response) => {
     };
     // Store user credentials in database
     await db.collection('users').doc(newUser.email).set(userCredentials);
-    // Return token
-    return response.status(201).json({ token });
+    // Return token and email
+    return response.status(201).json({ token, email: newUser.email });
   } catch (error) {
     let errors = [userError.signupFailDb];
 

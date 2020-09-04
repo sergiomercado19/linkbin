@@ -19,6 +19,10 @@ function LinkCard(props) {
     document.body.removeChild(dummy);
   }
 
+  const openNewTab = () => { 
+    window.open(props.link.url, '_blank'); 
+  }
+
   const classes = useStyles();
 
   return (
@@ -26,7 +30,7 @@ function LinkCard(props) {
       <Grid container spacing={2}>
 
         {/* Thumbnail */}
-        <Grid item className={classes.clickable} onClick={() => window.location.href=props.link.url}>
+        <Grid item className={classes.clickable} onClick={openNewTab}>
           <ButtonBase className={classes.image}>
             <img className={classes.img} alt="thumbnail" src={props.link.img} />
           </ButtonBase>
@@ -34,7 +38,7 @@ function LinkCard(props) {
 
         <Grid item xs={12} sm container>
           {/* Info */}
-          <Grid item xs container direction="column" spacing={2} className={classes.clickable} onClick={() => window.location.href=props.link.url}>
+          <Grid item xs container direction="column" spacing={2} className={classes.clickable} onClick={openNewTab}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1">
                 {props.link.title}
@@ -50,9 +54,11 @@ function LinkCard(props) {
           <Grid item>
             <Grid item container direction="column" style={{height: '100%'}}>
               {/* Remove */}
-              <IconButton color="primary" className={classes.close} onClick={() => props.removeLink(props.link.url)}>
-                <CloseIcon />
-              </IconButton>
+              {props.editable && (
+                <IconButton color="primary" className={classes.close} onClick={() => props.removeLink(props.link.url)}>
+                  <CloseIcon />
+                </IconButton>
+              )}
               
               <div style={{marginTop: 'auto'}}></div>
 

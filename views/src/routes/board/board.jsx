@@ -8,12 +8,13 @@ import InputBox from '../../components/input-box';
 import LinkCard from '../../components/link-card';
 
 import apiClient from '../../utils/apiClient';
-import { endSession } from '../../utils/session';
+import { getSession, endSession } from '../../utils/session';
 
 function Board() {
   let { boardId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [links, setLinks] = useState([]);
+  const [owner, setOwner] = useState('');
   const [isValid, setIsValid] = useState(true);
 
   // After the page renders, load the links
@@ -24,6 +25,7 @@ function Board() {
         switch (res.status) {
           case 200:
             setLinks(res.data.links);
+            setOwner(res.data.owner);
             break;
           case 404:
             // Redirect to 404 if board not valid
@@ -49,6 +51,7 @@ function Board() {
           case 200:
             // Reload board
             setLinks(res.data.links);
+            setOwner(res.data.owner);
             break;
           case 403:
             // Unauthorised user
@@ -74,6 +77,7 @@ function Board() {
           case 200:
             // Reload board
             setLinks(res.data.links);
+            setOwner(res.data.owner);
             break;
           case 403:
             // Unauthorised user
@@ -91,6 +95,10 @@ function Board() {
       });
   }
 
+  // Check if this board can be edited by checking
+  // if the board owner matches the session email
+  const isEditable = getSession.email() && owner === getSession.email();
+
   const classes = useStyles();
 
   if (isValid) {
@@ -100,13 +108,13 @@ function Board() {
         {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
 
         {/* New link input */}
-        <InputBox insertLink={insertLink} />
-  
+        {isEditable && <InputBox insertLink={insertLink} />}
+
         {/* Links */}
         <Grid container justify="center" spacing={3}>
           {links.map((link) => (
             <Grid key={link.url} item xs={6}>
-              <LinkCard link={link} removeLink={removeLink}/>
+              <LinkCard link={link} editable={isEditable} removeLink={removeLink}/>
             </Grid>
           ))}
         </Grid>
