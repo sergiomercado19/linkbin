@@ -1,4 +1,4 @@
-export const IN_DEVELOPMENT = true;
+export const IN_DEVELOPMENT = false;
 
 export const DEVELOP_URL = 'http://localhost:3000/linkbin-aea9b/us-central1';
 export const DEVELOP_API_URL = 'http://localhost:5000/linkbin-aea9b/us-central1/api';

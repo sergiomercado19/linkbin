@@ -33,7 +33,7 @@ function Home() {
           </Typography>
   
           {/* Tagline */}
-          <Typography variant="subtitle1">
+          <Typography variant="subtitle1" style={{marginBottom: 40}}>
             A link pinboard service
           </Typography>
   

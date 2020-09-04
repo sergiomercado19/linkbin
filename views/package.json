@@ -1,6 +1,7 @@
 {
   "name": "linkbin",
   "version": "0.1.0",
+  "homepage": "linkbin-aea9b.web.app",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
