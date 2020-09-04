@@ -19,7 +19,7 @@ import { getSession, endSession } from '../../utils/session';
 function Sidebar(props) {  
   
   const handleLogout = () => {
-    if (getSession()) {
+    if (getSession.token()) {
       endSession();
     }
   };
@@ -39,7 +39,7 @@ function Sidebar(props) {
           <ListItemIcon> <HomeIcon /> </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        {getSession() && (
+        {getSession.token() && (
           <ListItem component={Link} to={'/me/boards'} button key="boards">
             <ListItemIcon> <ListIcon /> </ListItemIcon>
             <ListItemText primary="My Boards" />
@@ -48,7 +48,7 @@ function Sidebar(props) {
       </List>
       <Divider />
       <List>
-        {!getSession() && (
+        {!getSession.token() && (
           <>
             <ListItem component={Link} to={'/login'} button key="login">
               <ListItemIcon> <LoginIcon /> </ListItemIcon>
@@ -60,7 +60,7 @@ function Sidebar(props) {
             </ListItem>
           </>
         )}
-        {getSession() && (
+        {getSession.token() && (
           <ListItem button key="logout" onClick={handleLogout}>
             <ListItemIcon> <LogoutIcon /> </ListItemIcon>
             <ListItemText primary="Logout" />

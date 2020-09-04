@@ -112,7 +112,7 @@ const getClient = (method, header, body, needToken = true) => {
 
   const headers = header || defaultHeaders;
   // Get user token from local storage
-  let token = getSession();
+  let token = getSession.token();
   if (needToken) headers.append('Authorization', token);
   
   const client = {

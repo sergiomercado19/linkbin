@@ -39,7 +39,7 @@ function BoardCard(props) {
           {/* Info */}
           <Grid item xs container direction="row" alignItems="center" spacing={2} className={classes.clickable} onClick={() => window.location.href=`/${props.board.id}`}>
             <Grid item xs>
-              <Typography variant="h2">
+              <Typography variant="h3">
                 {props.board.title}
               </Typography>
             </Grid>

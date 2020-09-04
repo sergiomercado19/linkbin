@@ -39,7 +39,7 @@ function Login() {
 			.then((res) => {
 				switch (res.status) {
           case 200:
-            startSession(res.data.token);
+            startSession(res.data.token, res.data.email);
             break;
           default:
 						setErrors(res.data.errors);
@@ -58,7 +58,7 @@ function Login() {
 
   const classes = useStyles();
 
-	if (getSession()) {
+	if (getSession.token()) {
 		return <Redirect to="/me/boards" />
 	} else {
 		return (

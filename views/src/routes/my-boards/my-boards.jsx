@@ -115,7 +115,7 @@ function MyBoards() {
 
   const classes = useStyles();
 
-  if (!getSession()) {
+  if (!getSession.token()) {
 		return <Redirect to="/" />
 	} else {
     return (

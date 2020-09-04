@@ -46,7 +46,7 @@ function Signup() {
 			.then((res) => {
 				switch (res.status) {
           case 201:
-            startSession(res.data.token);
+            startSession(res.data.token, res.data.email);
             break;
           default:
 						setErrors(res.data.errors);
@@ -64,7 +64,7 @@ function Signup() {
 
   const classes = useStyles();
 
-	if (getSession()) {
+	if (getSession.token()) {
 		return <Redirect to="/" />
 	} else {
 		return (
