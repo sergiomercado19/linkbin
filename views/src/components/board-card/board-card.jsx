@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { useStyles } from './board-card-styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
