@@ -41,7 +41,7 @@ function Board() {
         console.log(error);
         setLoading(false);
       });
-  }, [boardId]);
+  }, [boardId]); // [boardId] is there to prevent an infinite loading loop
 
   const insertLink = (linkUrl) => {
     setLoading(true);

@@ -63,10 +63,10 @@ function App() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+  // Sidebar controls
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -77,18 +77,13 @@ function App() {
         <CssBaseline />
 
         {/* Navbar */}
-        <AppBar
-          position="fixed"
+        <AppBar position="fixed"
           className={clsx(sidebarClasses.appBar, {
             [sidebarClasses.appBarShift]: open,
           })}
         >
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
+            <IconButton color="inherit" edge="start" onClick={handleDrawerOpen}
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
@@ -102,8 +97,7 @@ function App() {
         </AppBar>
 
         {/* Sidebar */}
-        <Drawer
-          variant="permanent"
+        <Drawer variant="permanent"
           className={clsx(classes.drawer, {
             [sidebarClasses.drawerOpen]: open,
             [sidebarClasses.drawerClose]: !open,

@@ -22,12 +22,13 @@ function MyBoards() {
   const [isLoading, setLoading] = useState(false);
   const [boards, setBoards] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
+
   const [title, setTitle] = useState('');
 
+  // New board modal controls
   const handleOpen = () => {
     setModalOpen(true);
   };
-
   const handleClose = () => {
     setModalOpen(false);
   };
@@ -50,7 +51,7 @@ function MyBoards() {
           endSession();
           break;
         default:
-          // TODO: Show errors as a popup
+          console.log(res);
           break;
       };
       setLoading(false);
@@ -75,7 +76,7 @@ function MyBoards() {
             endSession();
             break;
           default:
-            // TODO: Show errors as a popup
+            console.log(res);
             break;
         };
         handleClose();
@@ -102,7 +103,7 @@ function MyBoards() {
             endSession();
             break;
           default:
-            // TODO: Show errors as a popup
+            console.log(res);
             break;
         };
         setLoading(true);
@@ -116,8 +117,9 @@ function MyBoards() {
   const classes = useStyles();
 
   if (!getSession.token()) {
-		return <Redirect to="/" />
-	} else {
+    // Make this page unviewable when logged out
+    return <Redirect to="/" />
+  } else {
     return (
       <Container className={classes.boardSpace}>
         {/* Loading */}

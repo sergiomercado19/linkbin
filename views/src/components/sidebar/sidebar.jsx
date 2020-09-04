@@ -35,10 +35,13 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
+        {/* Home */}
         <ListItem component={Link} to={'/'} button key="home">
           <ListItemIcon> <HomeIcon /> </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
+
+        {/* My Boards */}
         {getSession.token() && (
           <ListItem component={Link} to={'/me/boards'} button key="boards">
             <ListItemIcon> <ListIcon /> </ListItemIcon>
@@ -50,16 +53,21 @@ function Sidebar(props) {
       <List>
         {!getSession.token() && (
           <>
+            {/* Login */}
             <ListItem component={Link} to={'/login'} button key="login">
               <ListItemIcon> <LoginIcon /> </ListItemIcon>
               <ListItemText primary="Login" />
             </ListItem>
+
+            {/* Signup */}
             <ListItem component={Link} to={'/signup'} button key="signup">
               <ListItemIcon> <SignupIcon /> </ListItemIcon>
               <ListItemText primary="Signup" />
             </ListItem>
           </>
         )}
+
+        {/* Logout */}
         {getSession.token() && (
           <ListItem button key="logout" onClick={handleLogout}>
             <ListItemIcon> <LogoutIcon /> </ListItemIcon>

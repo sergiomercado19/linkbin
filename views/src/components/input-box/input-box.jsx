@@ -8,9 +8,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 function InputBox(props) {
-  const classes = useStyles();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-
+  
+  // Pass the link to parent container
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.url.value !== '') {
@@ -19,10 +19,12 @@ function InputBox(props) {
       setIsAlertOpen(true);
     }
   }
-
+  
   const handleClose = () => {
     setIsAlertOpen(false);
   };
+  
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>

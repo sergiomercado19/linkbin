@@ -24,96 +24,108 @@ function Login() {
   const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const [isErrorOpen, setErrorOpen] = useState(false);
-	
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+  
+  // Form data
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-	const handleCloseError = () => {
-		setErrorOpen(false);
-	};
+  const handleCloseError = () => {
+    setErrorOpen(false);
+  };
 
   const handleSubmit = (e) => {
-		e.preventDefault();
-		setLoading(true);
-		apiClient.login(email, password)
-			.then((res) => {
-				switch (res.status) {
+    e.preventDefault();
+    setLoading(true);
+    apiClient.login(email, password)
+      .then((res) => {
+        switch (res.status) {
           case 200:
             startSession(res.data.token, res.data.email);
             break;
           default:
-						setErrors(res.data.errors);
-						setErrorOpen(true);
+            setErrors(res.data.errors);
+            setErrorOpen(true);
             break;
-				};
-				setLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);			
-				// setErrors(error.response.data);
-				setLoading(false);
-			});
-		
-	};
+        };
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);			
+        // setErrors(error.response.data);
+        setLoading(false);
+      });
+    
+  };
 
   const classes = useStyles();
 
-	if (getSession.token()) {
-		return <Redirect to="/me/boards" />
-	} else {
-		return (
-			<Container component="main" maxWidth="xs">
-				{/* Loading */}
-				{isLoading && <div className="spinner-base"><div className="spinner" /></div>}
+  if (getSession.token()) {
+    // Make this page unviewable when logged in
+    return <Redirect to="/me/boards" />
+  } else {
+    return (
+      <Container component="main" maxWidth="xs">
+        {/* Loading */}
+        {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
 
-				<CssBaseline />
-				<div className={classes.paper}>
-					<Avatar className={classes.avatar}>
-						<LockOutlinedIcon />
-					</Avatar>
-					<Typography component="h1" variant="h5">
-						Log In
-					</Typography>
-					<form className={classes.form} noValidate>
-						<TextField variant="outlined" margin="normal" fullWidth required autoFocus
-							type="email" name="email" autoComplete="email" label="Email Address" 
-							onChange={(e) => setEmail(e.target.value)}
-							error={email !== '' && !isEmail(email)}
-						/>
-						<TextField variant="outlined" margin="normal" fullWidth required
-							type="password" name="password" autoComplete="password" label="Password"
-							onChange={(e) => setPassword(e.target.value)}
-							error={password !== '' && isEmpty(password)}
-						/>
-						<Button variant="contained" type="submit" color="primary" fullWidth
-							className={classes.submit}
-							onClick={handleSubmit}
-							disabled={isLoading || !email || !password}
-						>
-							Log In
-							{isLoading && <CircularProgress size={30} className={classes.progess} />}
-						</Button>
-						<Grid container>
-							<Grid item>
-								<Link to="/signup" variant="body2" component={LinkStyle}>
-									{"Don't have an account? Sign Up"}
-								</Link>
-							</Grid>
-						</Grid>
-					</form>
-					<Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={handleCloseError}>
-						<MuiAlert elevation={6} variant="filled" onClose={handleCloseError} severity="error" >
-							{errors.map((error) => (
-								<Typography key={error}>
-									{error}
-								</Typography>
-							))}
-						</MuiAlert>
-					</Snackbar>
-				</div>
-			</Container>
-		);
-	}
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Log In
+          </Typography>
+
+          {/* Form */}
+          <form className={classes.form} noValidate>
+            {/* Email */}
+            <TextField variant="outlined" margin="normal" fullWidth required autoFocus
+              type="email" name="email" autoComplete="email" label="Email Address" 
+              onChange={(e) => setEmail(e.target.value)}
+              error={email !== '' && !isEmail(email)}
+            />
+
+            {/* Password */}
+            <TextField variant="outlined" margin="normal" fullWidth required
+              type="password" name="password" autoComplete="password" label="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              error={password !== '' && isEmpty(password)}
+            />
+
+            <Button variant="contained" type="submit" color="primary" fullWidth
+              className={classes.submit}
+              onClick={handleSubmit}
+              disabled={isLoading || !email || !password}
+            >
+              Log In
+              {isLoading && <CircularProgress size={30} className={classes.progess} />}
+            </Button>
+
+            {/* Tail */}
+            <Grid container>
+              <Grid item>
+                <Link to="/signup" variant="body2" component={LinkStyle}>
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+
+          {/* Error message popup */}
+          <Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={handleCloseError}>
+            <MuiAlert elevation={6} variant="filled" onClose={handleCloseError} severity="error" >
+              {errors.map((error) => (
+                <Typography key={error}>
+                  {error}
+                </Typography>
+              ))}
+            </MuiAlert>
+          </Snackbar>
+        </div>
+      </Container>
+    );
+  }
 }
 
 export default Login;
