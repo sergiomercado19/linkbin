@@ -21,7 +21,7 @@ import apiClient from '../../utils/apiClient';
 import { startSession, getSession } from '../../utils/session';
 
 function Signup() {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
   const [isErrorOpen, setErrorOpen] = useState(false);
 	
@@ -52,13 +52,14 @@ function Signup() {
 						setErrors(res.data.errors);
 						setErrorOpen(true);
             break;
-        };
+				};
+				setLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);			
 				// setErrors(error.response.data);
+				setLoading(false);
 			});
-		setLoading(false);
 	};
 
   const classes = useStyles();
@@ -68,6 +69,9 @@ function Signup() {
 	} else {
 		return (
 			<Container component="main" maxWidth="xs">
+				{/* Loading */}
+        {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
+
 				<CssBaseline />
 				<div className={classes.paper}>
 					<Avatar className={classes.avatar}>
@@ -123,10 +127,10 @@ function Signup() {
 						<Button variant="contained" type="submit" color="primary" fullWidth
 							className={classes.submit}
 							onClick={handleSubmit}
-							disabled={loading || !firstName || !lastName || !email || !password || !confirmPassword}
+							disabled={isLoading || !firstName || !lastName || !email || !password || !confirmPassword}
 						>
 							Sign Up
-							{loading && <CircularProgress size={30} className={classes.progess} />}
+							{isLoading && <CircularProgress size={30} className={classes.progess} />}
 						</Button>
 						<Grid container justify="flex-end">
 							<Grid item>
