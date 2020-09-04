@@ -18,11 +18,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
 import apiClient from '../../utils/apiClient';
+import { startSession, getSession } from '../../utils/session';
 
 function Signup() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
-  const [isSignedUp, setSignedUp] = useState(false);
   const [isErrorOpen, setErrorOpen] = useState(false);
 	
 	const [firstName, setFirstName] = useState('');
@@ -46,8 +46,8 @@ function Signup() {
 			.then((res) => {
 				switch (res.status) {
           case 201:
-            localStorage.setItem('AuthToken', `Bearer ${res.data.token}`);
-						setSignedUp(true);
+            startSession(res.data.token);
+						window.location.reload();
             break;
           default:
 						setErrors(res.data.errors);
@@ -64,7 +64,7 @@ function Signup() {
 
   const classes = useStyles();
 
-	if (isSignedUp || localStorage.getItem('AuthToken')) {
+	if (getSession()) {
 		return <Redirect to="/" />
 	} else {
 		return (

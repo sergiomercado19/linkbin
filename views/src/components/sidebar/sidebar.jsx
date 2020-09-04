@@ -14,11 +14,15 @@ import LoginIcon from '@material-ui/icons/AccountCircle';
 import SignupIcon from '@material-ui/icons/PersonAdd';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 
+import { getSession, endSession } from '../../utils/session';
+
 function Sidebar(props) {  
   
   const handleLogout = () => {
-    localStorage.removeItem('AuthToken');
-    window.location.reload();
+    if (getSession()) {
+      endSession();
+      window.location.reload();
+    }
   };
   
   const classes = useStyles();

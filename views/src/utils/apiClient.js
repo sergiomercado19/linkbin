@@ -1,3 +1,4 @@
+import { getSession } from './session';
 import {
   GET_BOARDS_URL, POST_BOARD_URL, DELETE_BOARD_URL,
   LINKS_URL, LOGIN_URL, SIGNUP_URL
@@ -111,7 +112,7 @@ const getClient = (method, header, body, needToken = true) => {
 
   const headers = header || defaultHeaders;
   // Get user token from local storage
-  let token = localStorage.getItem('AuthToken');
+  let token = getSession();
   if (needToken) headers.append('Authorization', token);
   
   const client = {

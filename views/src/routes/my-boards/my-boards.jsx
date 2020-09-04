@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import BoardCard from '../../components/board-card';
 
 import apiClient from '../../utils/apiClient';
+import { getSession, endSession } from '../../utils/session';
 import isEmpty from 'validator/lib/isEmpty';
 
 function MyBoards() {
@@ -46,7 +47,7 @@ function MyBoards() {
           break;
         case 403:
           // Logout user
-          localStorage.removeItem('AuthToken');
+          endSession();
           break;
         default:
           // TODO: Show errors as a popup
@@ -71,7 +72,7 @@ function MyBoards() {
             break;
           case 403:
             // Logout user
-            localStorage.removeItem('AuthToken');
+            endSession();
             break;
           default:
             // TODO: Show errors as a popup
@@ -98,7 +99,7 @@ function MyBoards() {
             break;
           case 403:
             // Logout user
-            localStorage.removeItem('AuthToken');
+            endSession();
             break;
           default:
             // TODO: Show errors as a popup
@@ -114,7 +115,7 @@ function MyBoards() {
 
   const classes = useStyles();
 
-  if (!localStorage.getItem('AuthToken')) {
+  if (!getSession()) {
 		return <Redirect to="/" />
 	} else {
     return (
