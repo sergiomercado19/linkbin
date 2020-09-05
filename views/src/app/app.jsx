@@ -111,7 +111,7 @@ function App() {
             {boardId && <Redirect to={`/${boardId}`} />}
             <div className={classes.search}>
               <TextField variant="outlined" size="small" name="boardId" placeholder="Lookup board ID" 
-                onSubmit={handleSearch} component="form"
+                onSubmit={handleSearch} component="form" style={{width: 300}}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
