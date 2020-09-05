@@ -10,6 +10,9 @@ export const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     position: 'relative',
   },
+  title: {
+    fontFamily: `'Russo One', sans-serif`,
+  },
   text: {
     textAlign: 'center',
     position: 'absolute',

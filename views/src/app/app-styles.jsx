@@ -27,6 +27,7 @@ export const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   grow: {
+    fontFamily: `'Russo One', sans-serif`,
     flexGrow: 1,
   },
   search: {
@@ -48,4 +49,11 @@ export const darkTheme = createMuiTheme({
     primary: blue,
     secondary: grey,
   },
+  typography: {
+    fontFamily: `'Saira', sans-serif`,
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500
+  }
 });

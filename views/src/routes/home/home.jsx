@@ -21,7 +21,7 @@ function Home() {
     <div className={classes.root}>
       <div className={classes.text}>
         {/* Title */}
-        <Typography variant="h1">
+        <Typography variant="h1" className={classes.title}>
           Linkbin
         </Typography>
 
