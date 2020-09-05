@@ -4,19 +4,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 
 function InputBox(props) {
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  
   // Pass the link to parent container
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.url.value !== '') {
       props.insertLink(e.target.url.value);
       e.target.url.value = '';
-      setIsAlertOpen(true);
     }
   }
   

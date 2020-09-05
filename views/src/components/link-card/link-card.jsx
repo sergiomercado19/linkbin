@@ -36,14 +36,14 @@ function LinkCard(props) {
           </ButtonBase>
         </Grid>
 
-        <Grid item xs={12} sm container>
+        <Grid item xs={12} sm container className={classes.clickable}>
           {/* Info */}
-          <Grid item xs container direction="column" spacing={2} className={classes.clickable} onClick={openNewTab}>
+          <Grid item xs container direction="column" spacing={2} onClick={openNewTab}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1">
+              <Typography gutterBottom variant="subtitle1" className={classes.clampHeading}>
                 {props.link.title}
               </Typography>
-              <Typography variant="body2" gutterBottom>
+              <Typography variant="body2" gutterBottom className={classes.clampBody}>
                 {props.link.description}
               </Typography>
               <Typography variant="body2" color="textSecondary">

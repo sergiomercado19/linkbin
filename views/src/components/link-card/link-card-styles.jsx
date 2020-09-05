@@ -4,6 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     height: 'fit-content',
     width: 'auto',
+    padding: 12,
   },
   control: {
     padding: theme.spacing(2),
@@ -17,13 +18,25 @@ export const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
-    paddingLeft: 12,
   },
   clickable: {
     cursor: 'pointer',
   },
   close: {
     padding: 4,
-    marginRight: 12,
+  },
+  clampHeading: {
+    overflow : 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: 'vertical',
+  },
+  clampBody: {
+    overflow : 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
   }
 }));
