@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
   },
   grow: {
-    fontFamily: `'Russo One', sans-serif`,
+    fontFamily: `'Russo One', sans-serif !important`,
     flexGrow: 1,
   },
   search: {
