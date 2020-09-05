@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStyles } from './input-box-styles';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';

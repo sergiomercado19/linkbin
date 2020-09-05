@@ -3,6 +3,7 @@ import { useParams, Redirect } from 'react-router-dom'
 import { useStyles } from './board-styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 import InputBox from '../../components/input-box';
 import LinkCard from '../../components/link-card';
@@ -13,9 +14,9 @@ import { getSession, endSession } from '../../utils/session';
 function Board() {
   let { boardId } = useParams();
   const [isLoading, setLoading] = useState(false);
-  const [links, setLinks] = useState([]);
-  const [owner, setOwner] = useState('');
   const [isValid, setIsValid] = useState(true);
+
+  const [board, setBoard] = useState({links: []});
 
   // After the page renders, load the links
   useEffect(() => {
@@ -24,8 +25,7 @@ function Board() {
       .then((res) => {
         switch (res.status) {
           case 200:
-            setLinks(res.data.links);
-            setOwner(res.data.owner);
+            setBoard(res.data);
             break;
           case 404:
             // Redirect to 404 if board not valid
@@ -50,8 +50,7 @@ function Board() {
         switch (res.status) {
           case 200:
             // Reload board
-            setLinks(res.data.links);
-            setOwner(res.data.owner);
+            setBoard(res.data);
             break;
           case 403:
             // Unauthorised user
@@ -76,8 +75,7 @@ function Board() {
         switch (res.status) {
           case 200:
             // Reload board
-            setLinks(res.data.links);
-            setOwner(res.data.owner);
+            setBoard(res.data);
             break;
           case 403:
             // Unauthorised user
@@ -97,7 +95,7 @@ function Board() {
 
   // Check if this board can be edited by checking
   // if the board owner matches the session email
-  const isEditable = getSession.email() && owner === getSession.email();
+  const isEditable = getSession.email() && board.owner === getSession.email();
 
   const classes = useStyles();
 
@@ -107,12 +105,24 @@ function Board() {
         {/* Loading */}
         {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
 
+        {/* Board title */}
+        <Typography className={classes.title} variant="h3" align="center">
+          {board.title}
+        </Typography>
+
         {/* New link input */}
         {isEditable && <InputBox insertLink={insertLink} />}
 
         {/* Links */}
         <Grid container justify="center" spacing={3}>
-          {links.map((link) => (
+          {/* Fallback text */}
+          {board.links.length == 0 && !isLoading && (
+            <Typography variant="h6" align="center">
+              This board looks empty :( <br /> Login to start adding links!
+            </Typography>
+          )}
+
+          {board.links.map((link) => (
             <Grid key={link.url} item xs={6}>
               <LinkCard link={link} editable={isEditable} removeLink={removeLink}/>
             </Grid>

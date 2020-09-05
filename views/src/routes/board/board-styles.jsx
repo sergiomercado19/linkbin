@@ -12,4 +12,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingRight: 64,
     paddingBottom: 100,
   },
+  title: {
+    marginBottom: 45,
+  }
 }));

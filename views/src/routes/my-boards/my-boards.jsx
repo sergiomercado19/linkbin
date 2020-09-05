@@ -11,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 import BoardCard from '../../components/board-card';
 
@@ -127,6 +128,13 @@ function MyBoards() {
 
         {/* Boards */}
         <Grid container justify="center" spacing={3}>
+          {/* Fallback text */}
+          {boards.length == 0 && !isLoading && (
+            <Typography variant="h6" align="center">
+              To get started, create a new board!
+            </Typography>
+          )}
+
           {boards.map((board) => (
             <Grid key={board.id} item xs={12}>
               <BoardCard board={board} deleteBoard={deleteBoard}/>
