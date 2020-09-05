@@ -20,22 +20,11 @@ function InputBox(props) {
     }
   }
   
-  const handleClose = () => {
-    setIsAlertOpen(false);
-  };
-  
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div className={classes.footer}>
-        {/* Popup */}
-        <Snackbar className={classes.popup} open={isAlertOpen} autoHideDuration={4000} onClose={handleClose}>
-          <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="info">
-            Fetching preview
-          </MuiAlert>
-        </Snackbar>
-
         <Paper elevation={6} component="form" className={classes.form} onSubmit={handleSubmit}>
           <InputBase
             name="url"
