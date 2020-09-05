@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, Redirect } from "react-router-dom";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStyles, darkTheme } from './app-styles';
@@ -9,6 +10,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { Switch, Route } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/core';
@@ -61,7 +66,9 @@ const useSidebarStyles = makeStyles((theme) => ({
 function App() {
   const sidebarClasses = useSidebarStyles();
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [boardId, setBoardId] = useState('');
 
   // Sidebar controls
   const handleDrawerOpen = () => {
@@ -70,6 +77,12 @@ function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Set boardId for redirect
+    setBoardId(e.target.boardId.value);
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -90,9 +103,29 @@ function App() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
+            <Typography variant="h6" noWrap className={classes.grow}>
               Linkbin
             </Typography>
+
+            {/* Searchbar */}
+            {boardId && <Redirect to={`/${boardId}`} />}
+            <div className={classes.search}>
+              <TextField variant="outlined" size="small" name="boardId" placeholder="Lookup board ID" 
+                onSubmit={handleSearch} component="form"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </div>
+
+            {/* New board */}
+            <Button color="inherit" component={Link} to={'/login'}>
+              Create board
+            </Button>
           </Toolbar>
         </AppBar>
 
@@ -114,7 +147,7 @@ function App() {
 
 
         {/* Route viewport */}
-        <main className={classes.content}>
+        <main className={classes.grow}>
           <Switch>
             <Route path="/" component={Home} exact />
             <Route path="/me/boards" component={MyBoards} exact />

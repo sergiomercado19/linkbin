@@ -16,7 +16,7 @@ function NotFound() {
 
         {/* Tagline */}
         <Typography variant="h3">
-          Page Not Found
+          Board Not Found
         </Typography>
       </div>
     </div>
