@@ -129,7 +129,7 @@ function MyBoards() {
         {/* Boards */}
         <Grid container justify="center" spacing={3}>
           {/* Fallback text */}
-          {boards.length == 0 && !isLoading && (
+          {boards.length === 0 && !isLoading && (
             <Typography variant="h6" align="center">
               To get started, create a new board!
             </Typography>

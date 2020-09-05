@@ -116,7 +116,7 @@ function Board() {
         {/* Links */}
         <Grid container justify="center" spacing={3}>
           {/* Fallback text */}
-          {board.links.length == 0 && !isLoading && (
+          {board.links.length === 0 && !isLoading && (
             <Typography variant="h6" align="center">
               This board looks empty :( <br /> Login to start adding links!
             </Typography>
