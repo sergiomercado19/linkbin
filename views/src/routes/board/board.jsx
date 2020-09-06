@@ -150,7 +150,9 @@ function Board() {
           {/* Fallback text */}
           {board.links.length === 0 && !isLoading && (
             <Typography variant="h6" align="center">
-              This board looks empty :( <br /> Login to start adding links!
+              {"This board looks empty :("}
+              <br />
+              {!getSession.token() && "If you own this board, login to start adding links!"}
             </Typography>
           )}
 
