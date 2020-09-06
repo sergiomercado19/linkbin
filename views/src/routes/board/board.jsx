@@ -3,14 +3,18 @@ import { useParams, Redirect } from 'react-router-dom'
 
 import { useStyles } from './board-styles';
 import {
-  Grid, Container, Typography
+  Grid, Container, Typography, Fab
 } from '@material-ui/core';
+import {
+  Share as ShareIcon
+} from '@material-ui/icons';
 
 import InputBox from 'components/input-box';
 import LinkCard from 'components/link-card';
 
 import apiClient from 'utils/apiClient';
 import { getSession, endSession } from 'utils/session';
+import { URL } from 'utils/constants';
 
 function Board() {
   let { boardId } = useParams();
@@ -18,6 +22,16 @@ function Board() {
   const [isValid, setIsValid] = useState(true);
 
   const [board, setBoard] = useState({links: []});
+
+  // Work around to copy a link to the clipboard
+  const copyLink = () => {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = `${URL}/${boardId}`;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+  }
 
   // After the page renders, load the links
   useEffect(() => {
@@ -113,6 +127,11 @@ function Board() {
 
         {/* New link input */}
         {isEditable && <InputBox insertLink={insertLink} />}
+
+        {/* Action */}
+        <Fab color="primary" className={classes.shareButton} onClick={copyLink}>
+          <ShareIcon />
+        </Fab>
 
         {/* Links */}
         <Grid container justify="center" spacing={3}>

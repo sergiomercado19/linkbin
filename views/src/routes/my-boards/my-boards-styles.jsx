@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: 100,
   },
   addButton: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(6),
     right: theme.spacing(6),
   },
