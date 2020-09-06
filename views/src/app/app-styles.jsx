@@ -8,16 +8,12 @@ export const useStyles = makeStyles((theme) => ({
   title: {
     fontFamily: `'Russo One', sans-serif !important`,
     flexGrow: 1,
+    minWidth: 100,
   },
   search: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     marginRight: theme.spacing(2),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
   },
   appBar: {
     zIndex: 10,
@@ -33,6 +29,15 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export const darkTheme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1080,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   palette: {
     type: 'dark',
     primary: blue,

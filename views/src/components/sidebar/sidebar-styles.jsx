@@ -24,6 +24,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: 'inherit',
+    whiteSpace: 'nowrap',
   },
   drawerContainer: {
     overflow: 'auto',

@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     height: 'fit-content',
     width: 'auto',
     padding: 12,
+    minWidth: 152,
   },
   control: {
     padding: theme.spacing(2),

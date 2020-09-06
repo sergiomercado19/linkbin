@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useStyles } from './sidebar-styles';
 import {
   List, Divider, ListItem, ListItemIcon, ListItemText,
-  Drawer, Toolbar, IconButton
+  Drawer, Toolbar, IconButton, ClickAwayListener
 } from '@material-ui/core';
 import {
   Home as HomeIcon, List as ListIcon, AccountCircle as LoginIcon,
@@ -15,7 +15,7 @@ import {
 import { getSession, endSession } from 'utils/session';
 
 function Sidebar() {
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
   
   const handleLogout = () => {
     if (getSession.token()) {
@@ -26,65 +26,67 @@ function Sidebar() {
   const classes = useStyles();
 
   return (
-    <Drawer
-      className={isOpen ? classes.drawerOpened : classes.drawerClosed}
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
-      <Toolbar />
-      <div className={classes.drawerContainer}>
-        <List>
-          {/* Home */}
-          <ListItem component={Link} to={'/'} button key="home">
-            <ListItemIcon> <HomeIcon /> </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-
-          {/* My Boards */}
-          {getSession.token() && (
-            <ListItem component={Link} to={'/me/boards'} button key="boards">
-              <ListItemIcon> <ListIcon /> </ListItemIcon>
-              <ListItemText primary="My Boards" />
+    <ClickAwayListener onClickAway={() => setOpen(false)}>
+      <Drawer
+        className={isOpen ? classes.drawerOpened : classes.drawerClosed}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <Toolbar />
+        <div className={classes.drawerContainer}>
+          <List>
+            {/* Home */}
+            <ListItem component={Link} to={'/'} button key="home">
+              <ListItemIcon> <HomeIcon /> </ListItemIcon>
+              <ListItemText primary="Home" />
             </ListItem>
-          )}
-        </List>
-        <Divider />
-        <List>
-          {!getSession.token() && (
-            <>
-              {/* Login */}
-              <ListItem component={Link} to={'/login'} button key="login">
-                <ListItemIcon> <LoginIcon /> </ListItemIcon>
-                <ListItemText primary="Login" />
+
+            {/* My Boards */}
+            {getSession.token() && (
+              <ListItem component={Link} to={'/me/boards'} button key="boards" style={{}} >
+                <ListItemIcon> <ListIcon /> </ListItemIcon>
+                <ListItemText primary="My Boards" />
               </ListItem>
+            )}
+          </List>
+          <Divider />
+          <List>
+            {!getSession.token() && (
+              <>
+                {/* Login */}
+                <ListItem component={Link} to={'/login'} button key="login">
+                  <ListItemIcon> <LoginIcon /> </ListItemIcon>
+                  <ListItemText primary="Login" />
+                </ListItem>
 
-              {/* Signup */}
-              <ListItem component={Link} to={'/signup'} button key="signup">
-                <ListItemIcon> <SignupIcon /> </ListItemIcon>
-                <ListItemText primary="Signup" />
+                {/* Signup */}
+                <ListItem component={Link} to={'/signup'} button key="signup">
+                  <ListItemIcon> <SignupIcon /> </ListItemIcon>
+                  <ListItemText primary="Signup" />
+                </ListItem>
+              </>
+            )}
+
+            {/* Logout */}
+            {getSession.token() && (
+              <ListItem button key="logout" onClick={handleLogout}>
+                <ListItemIcon> <LogoutIcon /> </ListItemIcon>
+                <ListItemText primary="Logout" />
               </ListItem>
-            </>
-          )}
+            )}
+          </List>
+          <div className={classes.spacer}></div>
 
-          {/* Logout */}
-          {getSession.token() && (
-            <ListItem button key="logout" onClick={handleLogout}>
-              <ListItemIcon> <LogoutIcon /> </ListItemIcon>
-              <ListItemText primary="Logout" />
-            </ListItem>
-          )}
-        </List>
-        <div className={classes.spacer}></div>
-
-        {/* Toggle */}
-        <Divider />
-        <IconButton style={{alignSelf: 'flex-end'}} onClick={() => setOpen(!isOpen)}>
-          {isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
-      </div>
-    </Drawer>
+          {/* Toggle */}
+          <Divider />
+          <IconButton style={{alignSelf: 'flex-end'}} onClick={() => setOpen(!isOpen)}>
+            {isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+      </Drawer>
+    </ClickAwayListener>
   );
 }
 

@@ -52,7 +52,7 @@ function App(props) {
             {/* Searchbar */}
             <div className={classes.search}>
               <TextField variant="outlined" size="small" name="boardId" placeholder="Lookup board ID" 
-                onSubmit={handleSearch} component="form" style={{width: 300}}
+                onSubmit={handleSearch} component="form" 
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -64,7 +64,7 @@ function App(props) {
             </div>
 
             {/* New board */}
-            <Button color="inherit" component={Link} to={'/login'}>
+            <Button color="inherit" component={Link} to={'/login'} style={{minWidth: 100, whiteSpace: 'nowrap'}}>
               Create board
             </Button>
           </Toolbar>

@@ -40,7 +40,7 @@ function LinkCard(props) {
           {/* Info */}
           <Grid item xs container direction="column" spacing={2} onClick={openNewTab}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" className={classes.clampHeading}>
+              <Typography gutterBottom variant="h6" className={classes.clampHeading}>
                 {props.link.title}
               </Typography>
               <Typography variant="body2" gutterBottom className={classes.clampBody}>

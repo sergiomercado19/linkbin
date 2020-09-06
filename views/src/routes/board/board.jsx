@@ -124,7 +124,7 @@ function Board() {
           )}
 
           {board.links.map((link) => (
-            <Grid key={link.url} item xs={6}>
+            <Grid key={link.url} item sm={12} md={6}>
               <LinkCard link={link} editable={isEditable} removeLink={removeLink}/>
             </Grid>
           ))}
