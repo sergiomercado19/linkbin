@@ -89,7 +89,7 @@ Firebase is a platform developed by Google for creating web applications. It pro
 ### Tech Stack
 
 The frontend tech stack consists of:
-- **[Authentication](https://firebase.google.com/products/auth)** - A Firebase service that provides easy sign-in with any platform. For Linkbin, the only sign-in method I have enabled is *email/password*. This component will provide [JWT](https://jwt.io/) tokens to authenticated users, which will be verified during secured API requests.
+- **[Authentication](https://firebase.google.com/products/auth)** - A Firebase service that provides easy sign-in with any platform. For Linkbin, the only sign-in method I have enabled is *email/password*. This component will provide [JWTs](https://jwt.io/) to authenticated users, which will be verified during secured API requests.
 - **[Cloud Firestore](https://firebase.google.com/products/firestore)** - A Firebase service that provides a NoSQL document database to easily store, sync, and query data. This database stores 2 collections: *boards* and *users*.
 - **[Cloud Functions](https://firebase.google.com/products/functions)** - A Firebase service that provides a sandbox to write a backend in JavaScript. This component hosts a REST API written in [Express](https://expressjs.com/) that interfaces with the *Cloud Firestore* and *Authentication* services to send data to the frontend.
 
