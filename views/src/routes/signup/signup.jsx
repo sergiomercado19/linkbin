@@ -69,9 +69,6 @@ function Signup() {
   } else {
     return (
       <Container component="main" maxWidth="xs">
-        {/* Loading */}
-        {isLoading && <div className="spinner-base"><div className="spinner" /></div>}
-
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
