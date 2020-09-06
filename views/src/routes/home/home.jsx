@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import { useStyles } from './home-styles';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import Container from '@material-ui/core/Container';
+import {
+  Typography, TextField, InputAdornment, Container
+} from '@material-ui/core';
+import {
+  Search as SearchIcon
+} from '@material-ui/icons';
 
 function Home() {
   const [boardId, setBoardId] = useState('');

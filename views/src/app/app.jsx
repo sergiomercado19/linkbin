@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, Switch, Route } from "react-router-dom";
+
 import { useStyles, darkTheme } from './app-styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-
-import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Avatar from '@material-ui/core/Avatar';
-
-import { Switch, Route } from "react-router-dom";
-import { ThemeProvider } from '@material-ui/core';
+import {
+  AppBar, Toolbar, Typography, Button, TextField,
+  InputAdornment, Avatar, CssBaseline, ThemeProvider
+} from '@material-ui/core';
+import {
+  Search as SearchIcon
+} from '@material-ui/icons';
 
 import Home from '../routes/home';
 import MyBoards from '../routes/my-boards';

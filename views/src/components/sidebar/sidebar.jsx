@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+
 import { useStyles } from './sidebar-styles';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import ListIcon from '@material-ui/icons/List';
-import LoginIcon from '@material-ui/icons/AccountCircle';
-import SignupIcon from '@material-ui/icons/PersonAdd';
-import LogoutIcon from '@material-ui/icons/ExitToApp';
-import Drawer from '@material-ui/core/Drawer';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {
+  List, Divider, ListItem, ListItemIcon, ListItemText,
+  Drawer, Toolbar, IconButton
+} from '@material-ui/core';
+import {
+  Home as HomeIcon, List as ListIcon, AccountCircle as LoginIcon,
+  PersonAdd as SignupIcon, ExitToApp as LogoutIcon,
+  ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon
+} from '@material-ui/icons';
 
 import { getSession, endSession } from '../../utils/session';
 

@@ -1,13 +1,12 @@
 import React from 'react';
+
 import { useStyles } from './board-card-styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import LinkIcon from '@material-ui/icons/Link';
-import LabelImportant from '@material-ui/icons/LabelImportant';
+import {
+  Grid, Paper, ButtonBase, Typography, IconButton
+ } from '@material-ui/core';
+import { 
+  Close as CloseIcon, Link as LinkIcon, LabelImportant
+} from '@material-ui/icons';
 
 import { URL } from '../../utils/constants';
 

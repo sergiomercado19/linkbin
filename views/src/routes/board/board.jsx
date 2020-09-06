@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom'
+
 import { useStyles } from './board-styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
+import {
+  Grid, Container, Typography
+} from '@material-ui/core';
 
 import InputBox from '../../components/input-box';
 import LinkCard from '../../components/link-card';

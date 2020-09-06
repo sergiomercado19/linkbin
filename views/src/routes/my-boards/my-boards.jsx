@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
+import isEmpty from 'validator/lib/isEmpty';
+
 import { useStyles } from './my-boards-styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Typography from '@material-ui/core/Typography';
+import {
+  Grid, Container, Fab, Button, TextField, Typography,
+  Dialog, DialogTitle, DialogActions, DialogContent
+} from '@material-ui/core';
+import {
+  Add as AddIcon
+} from '@material-ui/icons';
 
 import BoardCard from '../../components/board-card';
 
 import apiClient from '../../utils/apiClient';
 import { getSession, endSession } from '../../utils/session';
-import isEmpty from 'validator/lib/isEmpty';
 
 function MyBoards() {
   const [isLoading, setLoading] = useState(false);

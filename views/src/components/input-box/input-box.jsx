@@ -1,9 +1,12 @@
 import React from 'react';
+
 import { useStyles } from './input-box-styles';
-import AddIcon from '@material-ui/icons/Add';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
+import {
+  Paper, InputBase, IconButton
+} from '@material-ui/core';
+import {
+  Add as AddIcon
+} from '@material-ui/icons';
 
 function InputBox(props) {
   // Pass the link to parent container

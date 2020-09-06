@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { useStyles } from './login-styles';
 import { Link, Redirect } from "react-router-dom";
 import isEmail from 'validator/lib/isEmail';
 import isEmpty from 'validator/lib/isEmpty';
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import LinkStyle from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import { useStyles } from './login-styles';
+import {
+  Avatar, Button, CssBaseline, TextField, Typography, Grid,
+  Container, CircularProgress, Snackbar, Link as LinkStyle
+} from '@material-ui/core';
+import {
+  LockOutlined as LockOutlinedIcon 
+} from '@material-ui/icons';
+import {
+  Alert
+} from '@material-ui/lab';
 
 import apiClient from '../../utils/apiClient';
 import { startSession, getSession } from '../../utils/session';
@@ -114,13 +112,13 @@ function Login() {
 
           {/* Error message popup */}
           <Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={handleCloseError}>
-            <MuiAlert elevation={6} variant="filled" onClose={handleCloseError} severity="error" >
+            <Alert elevation={6} variant="filled" onClose={handleCloseError} severity="error" >
               {errors.map((error) => (
                 <Typography key={error}>
                   {error}
                 </Typography>
               ))}
-            </MuiAlert>
+            </Alert>
           </Snackbar>
         </div>
       </Container>
