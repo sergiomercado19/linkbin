@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    // background: 'url("landing-banner.jpg")',
     height: '100vh',
     minHeight: 400,
     backgroundPosition: 'center',
@@ -13,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   showcase: {
     background: 'url("landing-banner.jpg")',
     backgroundSize: 'cover',
-    minHeight: '50vh',
+    minHeight: '60vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

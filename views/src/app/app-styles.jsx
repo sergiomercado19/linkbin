@@ -1,32 +1,11 @@
 import { makeStyles, createMuiTheme, fade } from '@material-ui/core/styles';
 import { blue, grey } from '@material-ui/core/colors';
 
-const drawerWidth = 200;
-
 export const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  menuButton: {
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
-  grow: {
+  title: {
     fontFamily: `'Russo One', sans-serif !important`,
     flexGrow: 1,
   },
@@ -40,7 +19,17 @@ export const useStyles = makeStyles((theme) => ({
       width: 'auto',
     },
   },
-
+  appBar: {
+    zIndex: 10,
+  },
+  logo: {
+    backgroundColor: grey[300],
+    padding: 4,
+    marginRight: 20,
+  },
+  content: {
+    flexGrow: 1,
+  }
 }));
 
 export const darkTheme = createMuiTheme({

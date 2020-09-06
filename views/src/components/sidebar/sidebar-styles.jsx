@@ -1,12 +1,38 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+const drawerWidthOpen = 60;
+const drawerWidthClosed = 180;
+
 export const useStyles = makeStyles((theme) => ({
-  toolbar: {
+  drawerOpened: {
+    width: drawerWidthOpen,
+    flexShrink: 0,
+    zIndex: 9,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClosed: {
+    width: drawerWidthClosed,
+    flexShrink: 0,
+    zIndex: 9,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  drawerPaper: {
+    width: 'inherit',
+  },
+  drawerContainer: {
+    overflow: 'auto',
+    overflowX: 'hidden',
+    height: '100%',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
+    flexDirection: 'column',
+  },
+  spacer: {
+    flexGrow: 1,
   },
 }));
