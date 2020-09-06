@@ -1,8 +1,3 @@
-// Board API handlers
-// - getUserBoards
-// - newBoard
-// - deleteBoard
-
 const { db } = require('../utils/admin');
 const { boardError, authError } = require('../utils/errors');
 
@@ -13,7 +8,9 @@ const { boardError, authError } = require('../utils/errors');
  */
 exports.getUserBoards = async (request, response) => {
   const query = db.collection('boards').where('owner', '==', request.user.email);
-  const results = await query.get();
+  const results = await query.get().catch(() => {
+    return response.status(500).json({ errors: [boardError.userQueryFail] });
+  });
 
   let boards = [];
   results.forEach((board) => {
@@ -52,16 +49,20 @@ exports.newBoard = async (request, response) => {
     lastModified: Date.now(),
   };
 
-  const boardRef = await db.collection('boards').add(newBoardItem);
-  const board = await boardRef.get();
-
-  if (!board.exists) {
+  try {
+    const boardRef = await db.collection('boards').add(newBoardItem);
+    const board = await boardRef.get();
+  
+    if (!board.exists) {
+      return response.status(500).json({ errors: [boardError.createFail] });
+    } else {
+      // Add the boardId to the new board
+      let newBoard = board.data();
+      newBoard.id = board.id;
+      return response.status(201).json(newBoard);
+    }
+  } catch (error) {
     return response.status(500).json({ errors: [boardError.createFail] });
-  } else {
-    // Add the boardId to the new board
-    let newBoard = board.data();
-    newBoard.id = board.id;
-    return response.status(201).json(newBoard);
   }
 }
 
@@ -73,7 +74,9 @@ exports.newBoard = async (request, response) => {
  */
 exports.deleteBoard = async (request, response) => {
   const boardRef = db.collection('boards').doc(request.params.id);
-  const board = await boardRef.get();
+  const board = await boardRef.get().catch(() => {
+    return response.status(500).json({ errors: [boardError.lookupFail] });
+  });
 
   // Check if board exists
   if (!board.exists) {

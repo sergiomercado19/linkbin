@@ -1,8 +1,3 @@
-// Link API handlers
-// - getLinks
-// - insertLink
-// - removeLink
-
 const { db } = require('../utils/admin');
 const { boardError, linkError, authError } = require('../utils/errors');
 
@@ -15,7 +10,9 @@ const linkPreviewGenerator = require("link-preview-generator");
  */
 exports.getLinks = async (request, response) => {
   const boardRef = db.collection('boards').doc(request.params.id);
-  const board = await boardRef.get();
+  const board = await boardRef.get().catch(() => {
+    return response.status(500).json({ errors: [boardError.lookupFail] });
+  });
 
   if (!board.exists) {
     return response.status(404).json({ errors: [boardError.invalidId] });
@@ -42,7 +39,9 @@ exports.insertLink = async (request, response) => {
   }
 
   const boardRef = db.collection('boards').doc(request.params.id);
-  let board = await boardRef.get();
+  let board = await boardRef.get().catch(() => {
+    return response.status(500).json({ errors: [boardError.lookupFail] });
+  });
   let boardData = board.data();
 
   // Check if user owns the board
@@ -108,7 +107,9 @@ exports.removeLink = async (request, response) => {
   }
 
   const boardRef = db.collection('boards').doc(request.params.id);
-  let board = await boardRef.get();
+  let board = await boardRef.get().catch(() => {
+    return response.status(500).json({ errors: [boardError.lookupFail] });
+  });
   let boardData = board.data();
 
   // Check if user owns the board

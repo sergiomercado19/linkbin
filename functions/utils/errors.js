@@ -1,12 +1,14 @@
 // API error library
 //
-// These error messages were made readable to be displayed
+// These descriptive error messages are made to be displayed
 // in the frontend during a failed validation.
 
 exports.boardError = {
   invalidId: 'Invalid board ID',
   createFail: 'Database failed to create board',
   deleteFail: 'Database failed to delete board',
+  lookupFail: 'Database failed to get board',
+  userQueryFail: 'Database failed to get user\'s boards',
 };
 
 exports.linkError = {

@@ -1,8 +1,3 @@
-// Users API handlers
-// - getUser
-// - loginUser
-// - signupUser
-
 const firebase = require('firebase');
 const { admin, db } = require('../utils/admin');
 const { validateLoginData, validateSignupData } = require('../utils/validators');
