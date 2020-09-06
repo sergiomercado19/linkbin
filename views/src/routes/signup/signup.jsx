@@ -15,8 +15,8 @@ import {
   Alert
 } from '@material-ui/lab';
 
-import apiClient from '../../utils/apiClient';
-import { startSession, getSession } from '../../utils/session';
+import apiClient from 'utils/apiClient';
+import { startSession, getSession } from 'utils/session';
 
 function Signup() {
   const [isLoading, setLoading] = useState(false);

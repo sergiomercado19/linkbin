@@ -10,14 +10,14 @@ import {
   Search as SearchIcon
 } from '@material-ui/icons';
 
-import Home from '../routes/home';
-import MyBoards from '../routes/my-boards';
-import Board from '../routes/board';
-import Login from '../routes/login';
-import Signup from '../routes/signup';
-import NotFound from '../routes/not-found';
+import Home from 'routes/home';
+import MyBoards from 'routes/my-boards';
+import Board from 'routes/board';
+import Login from 'routes/login';
+import Signup from 'routes/signup';
+import NotFound from 'routes/not-found';
 
-import Sidebar from '../components/sidebar';
+import Sidebar from 'components/sidebar';
 
 function App() {
   const [boardId, setBoardId] = useState('');

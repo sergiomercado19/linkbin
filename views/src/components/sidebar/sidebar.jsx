@@ -12,7 +12,7 @@ import {
   ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon
 } from '@material-ui/icons';
 
-import { getSession, endSession } from '../../utils/session';
+import { getSession, endSession } from 'utils/session';
 
 function Sidebar() {
   const [isOpen, setOpen] = useState(true);

@@ -8,7 +8,7 @@ import {
   Close as CloseIcon, Link as LinkIcon, LabelImportant
 } from '@material-ui/icons';
 
-import { URL } from '../../utils/constants';
+import { URL } from 'utils/constants';
 
 function BoardCard(props) {
   // Work around to copy a link to the clipboard

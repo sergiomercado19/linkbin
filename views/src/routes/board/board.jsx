@@ -6,11 +6,11 @@ import {
   Grid, Container, Typography
 } from '@material-ui/core';
 
-import InputBox from '../../components/input-box';
-import LinkCard from '../../components/link-card';
+import InputBox from 'components/input-box';
+import LinkCard from 'components/link-card';
 
-import apiClient from '../../utils/apiClient';
-import { getSession, endSession } from '../../utils/session';
+import apiClient from 'utils/apiClient';
+import { getSession, endSession } from 'utils/session';
 
 function Board() {
   let { boardId } = useParams();

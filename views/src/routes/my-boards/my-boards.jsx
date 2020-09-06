@@ -11,10 +11,10 @@ import {
   Add as AddIcon
 } from '@material-ui/icons';
 
-import BoardCard from '../../components/board-card';
+import BoardCard from 'components/board-card';
 
-import apiClient from '../../utils/apiClient';
-import { getSession, endSession } from '../../utils/session';
+import apiClient from 'utils/apiClient';
+import { getSession, endSession } from 'utils/session';
 
 function MyBoards() {
   const [isLoading, setLoading] = useState(false);
