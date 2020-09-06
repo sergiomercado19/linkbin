@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect, Switch, Route } from "react-router-dom";
+import { Link, Redirect, Switch, Route, withRouter } from "react-router-dom";
 
 import { useStyles, darkTheme } from './app-styles';
 import {
@@ -19,13 +19,15 @@ import NotFound from 'routes/not-found';
 
 import Sidebar from 'components/sidebar';
 
-function App() {
-  const [boardId, setBoardId] = useState('');
-  
+function App(props) {  
   const handleSearch = (e) => {
     e.preventDefault();
     // Set boardId for redirect
-    setBoardId(e.target.boardId.value);
+    const boardId = e.target.boardId.value;
+    // Clear searchbox
+    e.target.boardId.value = '';
+    // Redirect
+    props.history.push(`/${boardId}`);
   }
 
   const classes = useStyles();
@@ -48,7 +50,6 @@ function App() {
             </Typography>
 
             {/* Searchbar */}
-            {boardId && <Redirect to={`/${boardId}`} />}
             <div className={classes.search}>
               <TextField variant="outlined" size="small" name="boardId" placeholder="Lookup board ID" 
                 onSubmit={handleSearch} component="form" style={{width: 300}}
@@ -89,4 +90,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);

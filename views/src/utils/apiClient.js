@@ -6,7 +6,7 @@
 import { getSession } from './session';
 import {
   GET_BOARDS_URL, POST_BOARD_URL, DELETE_BOARD_URL,
-  LINKS_URL, LOGIN_URL, SIGNUP_URL, URL
+  LINKS_URL, LOGIN_URL, SIGNUP_URL
 } from './constants';
 
 /////////
