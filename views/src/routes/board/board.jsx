@@ -3,11 +3,14 @@ import { useParams, Redirect } from 'react-router-dom'
 
 import { useStyles } from './board-styles';
 import {
-  Grid, Container, Typography, Fab
+  Grid, Container, Typography, Fab, Snackbar
 } from '@material-ui/core';
 import {
   Share as ShareIcon
 } from '@material-ui/icons';
+import {
+  Alert
+} from '@material-ui/lab';
 
 import InputBox from 'components/input-box';
 import LinkCard from 'components/link-card';
@@ -20,6 +23,8 @@ function Board() {
   let { boardId } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [isValid, setIsValid] = useState(true);
+  const [errors, setErrors] = useState([]);
+  const [isErrorOpen, setErrorOpen] = useState(false);
 
   const [board, setBoard] = useState({links: []});
 
@@ -32,6 +37,10 @@ function Board() {
     document.execCommand("copy");
     document.body.removeChild(dummy);
   }
+
+  const handleCloseError = () => {
+    setErrorOpen(false);
+  };
 
   // After the page renders, load the links
   useEffect(() => {
@@ -47,7 +56,8 @@ function Board() {
             if (res.data['errors']) setIsValid(false);
             break;
           default:
-            // TODO: Show errors as a popup
+            setErrors(res.data.errors);
+            setErrorOpen(true);
             break;
         };
         setLoading(false);
@@ -72,7 +82,8 @@ function Board() {
             endSession();
             break;
           default:
-            // TODO: Show errors as a popup
+            setErrors(res.data.errors);
+            setErrorOpen(true);
             break;
         };
         setLoading(false);
@@ -97,7 +108,8 @@ function Board() {
             endSession();
             break;
           default:
-            // TODO: Show errors as a popup
+            setErrors(res.data.errors);
+            setErrorOpen(true);
             break;
         };
         setLoading(false);
@@ -148,6 +160,17 @@ function Board() {
             </Grid>
           ))}
         </Grid>
+
+        {/* Error message popup */}
+        <Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={handleCloseError} style={{paddingBottom: 100}}>
+          <Alert elevation={6} variant="filled" onClose={handleCloseError} severity="error" >
+            {errors.map((error) => (
+              <Typography key={error}>
+                {error}
+              </Typography>
+            ))}
+          </Alert>
+        </Snackbar>
       </Container>
     );
   } else {
