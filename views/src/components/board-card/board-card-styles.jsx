@@ -22,7 +22,7 @@ export const useStyles = makeStyles((theme) => ({
   clickable: {
     cursor: 'pointer',
   },
-  close: {
+  icon: {
     padding: 4,
     marginRight: 12,
   }

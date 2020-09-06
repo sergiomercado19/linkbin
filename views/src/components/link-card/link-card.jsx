@@ -5,7 +5,7 @@ import {
   Grid, Paper, ButtonBase, Typography, IconButton
 } from '@material-ui/core';
 import {
-  Close as CloseIcon, Link as LinkIcon
+  Close as CloseIcon, FileCopy as CopyIcon
 } from '@material-ui/icons';
 
 function LinkCard(props) {
@@ -62,9 +62,9 @@ function LinkCard(props) {
               
               <div style={{marginTop: 'auto'}}></div>
 
-              {/* Link */}
+              {/* Copy */}
               <IconButton color="primary" className={classes.close} onClick={copyLink}>
-                <LinkIcon/>
+                <CopyIcon/>
               </IconButton>
             </Grid>
           </Grid>

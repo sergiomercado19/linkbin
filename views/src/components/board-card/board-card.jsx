@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useStyles } from './board-card-styles';
 import {
-  Grid, Paper, ButtonBase, Typography, IconButton
- } from '@material-ui/core';
+  Grid, Paper, ButtonBase, Typography, IconButton, Snackbar
+} from '@material-ui/core';
 import { 
-  Close as CloseIcon, Link as LinkIcon, LabelImportant
+  Close as CloseIcon, Share as ShareIcon, LabelImportant
 } from '@material-ui/icons';
+import {
+  Alert
+} from '@material-ui/lab';
 
 import { URL } from 'utils/constants';
 
 function BoardCard(props) {
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
   // Work around to copy a link to the clipboard
   const copyBoard = () => {
     var dummy = document.createElement("textarea");
@@ -19,7 +24,13 @@ function BoardCard(props) {
     dummy.select();
     document.execCommand("copy");
     document.body.removeChild(dummy);
+    // Show popup
+    setPopupOpen(true);
   }
+
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  };
 
   const classes = useStyles();
 
@@ -46,16 +57,24 @@ function BoardCard(props) {
           <Grid item>
             <Grid item container direction="column" style={{height: '100%'}}>
               {/* Delete */}
-              <IconButton color="primary" className={classes.close} onClick={() => props.deleteBoard(props.board.id)}>
+              <IconButton color="primary" className={classes.icon} onClick={() => props.deleteBoard(props.board.id)}>
                 <CloseIcon />
               </IconButton>
               
               <div style={{marginTop: 'auto'}}></div>
 
-              {/* Link */}
-              <IconButton color="primary" className={classes.close} onClick={copyBoard}>
-                <LinkIcon/>
+              {/* Share */}
+              <IconButton color="primary" className={classes.icon} onClick={copyBoard}>
+                <ShareIcon/>
               </IconButton>
+
+              {/* Copied to clipboard message popup */}
+              <Snackbar open={isPopupOpen} autoHideDuration={4000} onClose={handleClosePopup}>
+                <Alert elevation={6} variant="filled" onClose={handleClosePopup} severity="info" >
+                  Copied to clipboard!
+                </Alert>
+              </Snackbar>
+              
             </Grid>
           </Grid>
         </Grid>
