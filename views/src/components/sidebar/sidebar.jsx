@@ -86,7 +86,7 @@ function Sidebar() {
         {/* Toggle */}
         <Divider />
         <IconButton style={{alignSelf: 'flex-end'}} onClick={() => setOpen(!isOpen)}>
-          {isOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          {isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </div>
     </Drawer>
