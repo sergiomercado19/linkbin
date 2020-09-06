@@ -29,7 +29,7 @@ function BoardCard(props) {
 
         {/* Arrow */}
         <Grid item className={classes.clickable} onClick={() => window.location.href=`/${props.board.id}`}>
-          <ButtonBase className={classes.image}>
+          <ButtonBase disableRipple className={classes.image}>
             <LabelImportant style={{height: '75%', width: '75%'}} />
           </ButtonBase>
         </Grid>

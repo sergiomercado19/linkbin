@@ -31,7 +31,7 @@ function LinkCard(props) {
 
         {/* Thumbnail */}
         <Grid item className={classes.clickable} onClick={openNewTab}>
-          <ButtonBase className={classes.image}>
+          <ButtonBase disableRipple className={classes.image}>
             <img className={classes.img} alt="thumbnail" src={props.link.img} />
           </ButtonBase>
         </Grid>
