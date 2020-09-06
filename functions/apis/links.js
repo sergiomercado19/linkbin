@@ -29,19 +29,21 @@ exports.getLinks = async (request, response) => {
  * @return  {Board} board.data() - All data from the given board, including the link just inserted.
  */
 exports.insertLink = async (request, response) => {
-  if (!request.body.url) {
-    return response.status(404).json({ errors: [linkError.emptyUrl] });
-  }
-
   const url = request.body.url.trim();
-  if (url === '') {
-    return response.status(404).json({ errors: [linkError.invalidUrl] });
+  if (!request.body.url || !url) {
+    return response.status(400).json({ errors: [linkError.emptyUrl] });
   }
 
   const boardRef = db.collection('boards').doc(request.params.id);
   let board = await boardRef.get().catch(() => {
     return response.status(500).json({ errors: [boardError.lookupFail] });
   });
+
+  // Check if board exists
+  if (!board.exists) {
+    return response.status(404).json({ errors: [boardError.invalidId] });
+  }
+
   let boardData = board.data();
 
   // Check if user owns the board
@@ -102,14 +104,20 @@ exports.insertLink = async (request, response) => {
  */
 exports.removeLink = async (request, response) => {
   const url = request.body.url.trim();
-  if (url === '') {
-    return response.status(404).json({ errors: [linkError.invalidUrl] });
+  if (!request.body.url || !url) {
+    return response.status(400).json({ errors: [linkError.emptyUrl] });
   }
 
   const boardRef = db.collection('boards').doc(request.params.id);
   let board = await boardRef.get().catch(() => {
     return response.status(500).json({ errors: [boardError.lookupFail] });
   });
+
+  // Check if board exists
+  if (!board.exists) {
+    return response.status(404).json({ errors: [boardError.invalidId] });
+  }
+
   let boardData = board.data();
 
   // Check if user owns the board
