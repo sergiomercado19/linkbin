@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    background: 'url("landing-banner.jpg")',
+    // background: 'url("landing-banner.jpg")',
     height: '100vh',
     minHeight: 400,
     backgroundPosition: 'center',
@@ -10,15 +10,19 @@ export const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     position: 'relative',
   },
+  showcase: {
+    background: 'url("landing-banner.jpg")',
+    backgroundSize: 'cover',
+    minHeight: '50vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   title: {
     fontFamily: `'Russo One', sans-serif`,
   },
   text: {
     textAlign: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
     color: 'white',
     padding: 50,
   },
@@ -27,5 +31,8 @@ export const useStyles = makeStyles((theme) => ({
     width: 400,
     backgroundColor: 'rgba(0,0,0,0.85)',
     borderRadius: 4,
+  },
+  content: {
+    paddingTop: 40,
   }
 }));
