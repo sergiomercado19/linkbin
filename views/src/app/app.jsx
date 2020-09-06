@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, Redirect, Switch, Route, withRouter } from "react-router-dom";
+import React from 'react';
+import { Link, Switch, Route, withRouter } from "react-router-dom";
 
 import { useStyles, darkTheme } from './app-styles';
 import {
