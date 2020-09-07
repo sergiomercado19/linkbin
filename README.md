@@ -4,6 +4,8 @@ Linkbin is a platform to create 'link boards' and share them with people. These 
 
 This project is currently hosted using [Firebase](https://firebase.google.com/products/hosting) at [linkbin-aea9b.web.app](https://linkbin-aea9b.web.app/), where you can start using this web application. The site is not optimised for mobile, so for the best viewing experience access it from a browser.
 
+*NOTE: My current hosting solution causes the link-preview-generator to timeout on graphically instensive sites (e.g. Youtube, Spotify).*
+
 Continue reading for instructions on how to get the project up and running on your local machine.
 
 ## Summary
