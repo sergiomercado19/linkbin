@@ -11,6 +11,7 @@ Continue reading for instructions on how to get the project up and running on yo
 - [System Architecture Overview](#system-architecture-overview)
 - [Frontend: React](#frontend-react)
 - [Backend-as-a-Service: Firebase](#backend-as-a-service-firebase)
+- [API Documentation](#api-documentation)
 - [Local Development](#local-development)
 - [Testing](#testing)
 - [License](#license)
@@ -104,7 +105,11 @@ The backend code resides in the **functions/** directory of the repository. This
 
 A `config.js` file located in **utils/** contains a set of variables and keys to configurate the Firebase SDK required for *Authentication*. This step will only need to be done once. Note that this file is not git-tracked so you will need to create it in order to run the backend.
 
-*Note: `config.js` gets imported by **apis/users.js**. Check out that file to see how to initalize the Firebase app with these variables.
+*Note: `config.js` gets imported by **apis/users.js**. Check out that file to see how to initalize the Firebase app with these variables.*
+
+## API Documentation
+
+The API documentation was compiled using [Postman](https://www.postman.com/) and it's hosted at [Linkbin API Documentation](https://documenter.getpostman.com/view/12624229/TVCiSm42). Here you can find a description of all the endpoints and examples of responses to valid and invalid requests. Note that most of them require a *Bearer token*, provided after logging in or signing up.
 
 ## Local Development
 
