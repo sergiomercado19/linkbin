@@ -4,7 +4,7 @@ Linkbin is a platform to create 'link boards' and share them with people. These 
 
 This project is currently hosted using [Firebase](https://firebase.google.com/products/hosting) at [linkbin-aea9b.web.app](https://linkbin-aea9b.web.app/), where you can start using this web application. The site is not optimised for mobile, so for the best viewing experience access it from a browser.
 
-*NOTE: My current hosting solution causes the link-preview-generator to timeout on graphically instensive sites (e.g. Youtube, Spotify).*
+*NOTE: My current hosting solution causes the link-preview-generator to timeout on graphically intensive sites (e.g. Youtube, Spotify).*
 
 Continue reading for instructions on how to get the project up and running on your local machine.
 
@@ -95,6 +95,7 @@ The frontend tech stack consists of:
 - **[Authentication](https://firebase.google.com/products/auth)** - A Firebase service that provides easy sign-in with any platform. For Linkbin, the only sign-in method I have enabled is *email/password*. This component will provide [JWTs](https://jwt.io/) to authenticated users, which will be verified during secured API requests.
 - **[Cloud Firestore](https://firebase.google.com/products/firestore)** - A Firebase service that provides a NoSQL document database to easily store, sync, and query data. This database stores 2 collections: *boards* and *users*.
 - **[Cloud Functions](https://firebase.google.com/products/functions)** - A Firebase service that provides a sandbox to write a backend in JavaScript. This component hosts a REST API written in [Express](https://expressjs.com/) that interfaces with the *Cloud Firestore* and *Authentication* services to send data to the frontend.
+- **[link-preview-generator](https://www.npmjs.com/package/link-preview-generator)** - An npm library that uses Puppeteer to create a *link preview* from site metadata defined using, but not limited to, the [Open Graph Protocol](https://ogp.me/).
 
 ### Folder structure
 
