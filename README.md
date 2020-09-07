@@ -91,7 +91,7 @@ Firebase is a platform developed by Google for creating web applications. It pro
 
 ### Tech Stack
 
-The frontend tech stack consists of:
+The backend tech stack consists of:
 - **[Authentication](https://firebase.google.com/products/auth)** - A Firebase service that provides easy sign-in with any platform. For Linkbin, the only sign-in method I have enabled is *email/password*. This component will provide [JWTs](https://jwt.io/) to authenticated users, which will be verified during secured API requests.
 - **[Cloud Firestore](https://firebase.google.com/products/firestore)** - A Firebase service that provides a NoSQL document database to easily store, sync, and query data. This database stores 2 collections: *boards* and *users*.
 - **[Cloud Functions](https://firebase.google.com/products/functions)** - A Firebase service that provides a sandbox to write a backend in JavaScript. This component hosts a REST API written in [Express](https://expressjs.com/) that interfaces with the *Cloud Firestore* and *Authentication* services to send data to the frontend.
@@ -142,7 +142,6 @@ git clone git@github.com:sergiomercado19/linkbin.git
 ### Setting up environment variables
 
 If you are developing on the frontend, you need to ensure that the `URL` and `API_URL` variables from the **views/src/utils/constants.js** are pointing to your development environment or the live Firebase project.
-
 
 However, to interact with the *Authentcation* service of Firebase you must configure the `config.js` file located in **functions/utils/**. The contents of this file can be located after navigating to `Project Settings > General` on the project's Firebase dashboard and registering the app. Below is a template for this file:
 
@@ -196,7 +195,7 @@ Since this webapp was constructured under a time constraint, I didn't employ tes
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
