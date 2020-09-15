@@ -33,5 +33,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   content: {
     paddingTop: 40,
+  },
+  link: {
+    color: theme.palette.primary.main,
+    fontWeight: 'bold',
   }
 }));

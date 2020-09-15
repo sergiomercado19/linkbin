@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import { useStyles } from './home-styles';
 import {
@@ -59,6 +59,10 @@ function Home() {
           <br /><br />
           To begin using the platform you can either lookup a board by its ID; or
           alternatively, you can login and create your own board!
+          <br /><br />
+          Check out these sample boards for some inspiration:&nbsp; 
+          <Link className={classes.link} to="/SGjvpcT53z9vcZKNlVYg">UNSW CSESoc</Link> and&nbsp;
+          <Link className={classes.link} to="/FLTzQMKNVPTJ111Y1um1">Southern Coast Trip</Link>.
         </Typography>
       </Container>
     </div>
