@@ -1,14 +1,14 @@
 # Linkbin
 
-Linkbin is a platform to create 'link boards' and share them with people. These 'link boards' consist of a grid of link previews; which can be viewed by anyone with a URL/boardID, but only modified by the board owner.
+Linkbin is a platform to create 'link boards' to share with people. Linkbin removes the inconvenience of sharing multiple links by using boards to group them. The board's ID or URL can then be shared with anyone to let them view the board. Additionally, Linkbin displays a preview of the link on the board to make it more informative and meaningful. This preview consists of an image, a title, a description and a domain.
 
-This project is currently hosted using [Firebase](https://firebase.google.com/products/hosting) at [linkbin-aea9b.web.app](https://linkbin-aea9b.web.app/), where you can start using this web application. The site is not optimised for mobile, so for the best viewing experience access it from a browser.
+Linkbin borrows the easy-sharing using a public URL functionality from services like [pastebin](https://pastebin.com/) and the concept of 'boards' from [Pinterest](https://www.pinterest.com.au/), but using link previews instead of images.
 
-*NOTE: My current hosting solution causes the link-preview-generator to timeout on graphically intensive sites (e.g. Youtube, Spotify).*
+This project is currently hosted using [Firebase](https://firebase.google.com/products/hosting) at [linkbin-aea9b.web.app](https://linkbin-aea9b.web.app/), where you can start using this web application. The site is not optimised for mobile, so for the best viewing experience access it from a desktop web browser.
 
 Continue reading for instructions on how to get the project up and running on your local machine.
 
-## Summary
+## Contents
 
 - [System Architecture Overview](#system-architecture-overview)
 - [Frontend: React](#frontend-react)
@@ -16,6 +16,7 @@ Continue reading for instructions on how to get the project up and running on yo
 - [API Documentation](#api-documentation)
 - [Local Development](#local-development)
 - [Testing](#testing)
+- [Improvements](#improvements)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 
@@ -27,14 +28,14 @@ Continue reading for instructions on how to get the project up and running on yo
 
 Since I had to learn these Frontend frameworks, my two main considerations/requirements for the frontend were to showcase what I had learnt and to create a simple, yet useful web application.
 
-The frontend is arguably the most important component of Linkbin as it will be it's simplicty that will make it stand out from similar web applications. The frontend is statically hosted on Firebase and is supported by a series of REST APIs. The frontend communicates with the backend through various asynchronous calls to a REST API server which returns data to display and add functionality to the website (i.e. boards, link previews, user information).
+The frontend is arguably the most important component of Linkbin as it will be its simplicty that will make it stand out from similar web applications. The frontend is statically hosted on Firebase and is supported by a series of REST APIs. The frontend communicates with the backend through various asynchronous calls to a REST API server which returns data to display and add functionality to the website (i.e. boards, link previews, user information).
 
 ### Tech Stack
 
 The frontend tech stack consists of:
 - [React](https://reactjs.org/) - A JavaScript framework that is easy to learn but difficult to master.
 - [Material-UI](https://material-ui.com/) - A popular React UI framework used to create websites with a Material Design.
-- [React Router](https://reactrouter.com/) - A React library for declarative routing, extremely useful for multi-page sites.
+- [React Router](https://reactrouter.com/) - A React library for declarative routing, useful for creating navigational components that render based on the URL.
 
 *NOTE: Since React seems to be shifting towards a wide adoption of functional components I have opted to use them rather than the traditional class components.*
 
@@ -75,7 +76,7 @@ src
 ```
 
 Names in brackets represent React component folders containing 3 files:
-- **component-name.jsx** - File containing functional component.
+- **component-name.jsx** - File containing the functional component.
 - **component-name-style.jsx** - File containing CSS styles defined as a JavaScript object.
 - **index.jsx** - This file simply exports the component declared in *component-name-style.jsx*. Having this file present means that when we import this module we can reference the directory rather than the **.jsx** file. E.g. `routes/home` instead of `routes/home/home.jsx`.
 
@@ -192,6 +193,13 @@ firebase init
 ## Testing
 
 Since this webapp was constructured under a time constraint, I didn't employ test-driven development. The test units will be added on a later minor update.
+
+## Improvements
+
+Here are some changes that I'd like to make in the future:
+- Allowing the use of custom boardIDs, rather than randomly-generated 20-character long strings.
+- Adding account deletion functionality.
+- Simplifying the UI by eliminating the sidebar.
 
 ## License
 
